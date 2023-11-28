@@ -1,4 +1,4 @@
-package com.unitedcoder.storefront;
+package com.unitedcoder.frontend;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
