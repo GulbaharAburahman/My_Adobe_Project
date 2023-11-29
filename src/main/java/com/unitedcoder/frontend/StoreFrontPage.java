@@ -20,7 +20,7 @@ public class StoreFrontPage extends BaseClass {
   @FindAll(@FindBy(css = "ol.nav-primary>li"))
   List<WebElement> allRootCategories;
   @FindAll(@FindBy(xpath = "//div[@id='header-account']//a"))
-  List<WebElement> accountDropDownSubMenus;
+  List<WebElement> accountDropDownSubLinks;
 
   @FindAll(@FindBy(xpath = "//ol[@class='nav-primary']//li//li//a"))
   List<WebElement> categoriesDropdownSubmenus;
@@ -48,15 +48,22 @@ WebElement confirmPasswordField;
 
 @FindBy(xpath ="//button[@class='button']/span")
 WebElement registerButton;
-
-
-
-
-
   @FindBy(css = "div.header-minicart")
   WebElement cart;
   @FindBy(css = "input#newsletter.input-text.required-entry.validate-email")
   WebElement newsLetterSubscribe;
+
+  @FindBy(css = "li.success-msg")
+  WebElement successMessage;
+
+  @FindBy(xpath="//*[@id='email']")
+  WebElement loginEmailField;
+  @FindBy(name="login[password]")
+  WebElement loginPassword;
+  @FindBy(id="send2")
+  WebElement loginButton;
+  @FindBy(css = "div.welcome-msg")
+  WebElement welcomeMessage;
 
 
   public StoreFrontPage(WebDriver driver) {
@@ -66,13 +73,12 @@ WebElement registerButton;
 
   public void  createAccount( String firstname, String lastname,String email, String password){
     accountLink.click();
-    for(WebElement each:accountDropDownSubMenus){
+    for(WebElement each:accountDropDownSubLinks){
      if( each.getText().equals("Register") ){
        each.click();
        break;
      }
     }
-
     functionLibrary.waitForElementPresent(firstnameField);
     firstnameField.sendKeys(firstname);
     functionLibrary.waitForElementPresent(lastnameField);
@@ -84,6 +90,31 @@ WebElement registerButton;
     functionLibrary.waitForElementPresent(confirmPasswordField);
     confirmPasswordField.sendKeys(password);
     registerButton.click();
+  }
+
+  public boolean isAccountCreated(){
+    return successMessage.isDisplayed();
+  }
+
+  public void loginToAccount(String email, String password){
+    functionLibrary.waitForElementPresent(accountLink);
+    accountLink.click();
+    for(WebElement each:accountDropDownSubLinks){
+      if( each.getText().equals("Log In") ){
+        each.click();
+        break;
+      }
+    }
+    functionLibrary.waitForElementPresent(loginEmailField);
+    loginEmailField.sendKeys(email);
+    functionLibrary.waitForElementPresent(loginPassword);
+    loginPassword.sendKeys(password);
+    functionLibrary.waitForElementPresent(loginButton);
+    loginButton.click();
+  }
+
+  public boolean isLoginSuccessful(){
+    return welcomeMessage.isDisplayed();
   }
 
 
