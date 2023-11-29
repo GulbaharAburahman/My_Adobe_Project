@@ -4,24 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba610312-1fc7-4e81-83e7-14e14e44cfe5" name="Changes" comment="UI page design">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/backend/CatalogModule/CatalogManagerPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/backend/customerModule/CustomerManagerPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/backend/marketingmodule/MarketingManagerPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/backend/reportingmodule/ReportingManagerPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/backend/salesmodule/SalesManagerPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/backend/storemodule/StoreManagerPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/BrowserType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/UtilityClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/StoreFrontPage.java" afterDir="false" />
+    <list default="true" id="ba610312-1fc7-4e81-83e7-14e14e44cfe5" name="Changes" comment="UI Automation page design">
+      <change afterPath="$PROJECT_DIR$/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/BaseClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/BaseClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/FunctionLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/FunctionLibrary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/storefront/CreateAccountPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/CreateAccountPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/storefront/StoreFrontPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/BaseClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/BaseClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/CreateAccountPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/StoreFrontPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/StoreFrontPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,13 +46,23 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/Users/guliabdurahman/IdeaProjects/AdobeMagento_eCommercePlatformTestAutomation",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/testdatafolder" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unitedcoder.Main" />
@@ -98,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1700999336680</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="UI Automation page design">
+      <created>1701158617845</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701158617845</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,6 +134,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="UI page design" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI page design" />
+    <MESSAGE value="UI Automation page design" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI Automation page design" />
   </component>
 </project>

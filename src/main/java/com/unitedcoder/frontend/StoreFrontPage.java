@@ -14,7 +14,7 @@ public class StoreFrontPage extends BaseClass {
   FunctionLibrary functionLibrary;
 
   @FindBy (css = "div.account-cart-wrapper")
-  WebElement accountIcon;
+  WebElement accountLink;
   @FindBy(id = "editing-view-port")
   WebElement searchBar;
   @FindAll(@FindBy(css = "ol.nav-primary>li"))
@@ -65,7 +65,7 @@ WebElement registerButton;
   }
 
   public void  createAccount( String firstname, String lastname,String email, String password){
-    accountIcon.click();
+    accountLink.click();
     for(WebElement each:accountDropDownSubMenus){
      if( each.getText().equals("Register") ){
        each.click();

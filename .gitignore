@@ -36,3 +36,12 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+#test data and test reports
+docs
+log
+images
+jsonfiles
+test_output
+testdatafolder
+config.properties

@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.Browser;
 
 public class BaseClass {
+
  public  WebDriver driver;
 
 
@@ -20,7 +21,7 @@ public class BaseClass {
    case FIREFOX -> {
        FirefoxOptions firefoxOptions=new FirefoxOptions();
        firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-       driver=new FirefoxDriver();}
+       driver=new FirefoxDriver(firefoxOptions);}
    }
   }
 
