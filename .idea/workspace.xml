@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba610312-1fc7-4e81-83e7-14e14e44cfe5" name="Changes" comment="UI Automation page design">
-      <change afterPath="$PROJECT_DIR$/src/test/java/publicPageFunctionalTest.java" afterDir="false" />
+    <list default="true" id="ba610312-1fc7-4e81-83e7-14e14e44cfe5" name="Changes" comment="TestNg Frame work designed for Public Page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/BaseClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/BaseClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/FunctionLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/FunctionLibrary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/UtilityClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/commonuse/UtilityClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/StoreFrontPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/unitedcoder/frontend/StoreFrontPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/publicPageFunctionalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/frontpagetestcases/publicPageFunctionalTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +62,7 @@
       <recent name="$PROJECT_DIR$/testdatafolder" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.publicPageFunctionalTest.loginToAccount">
+  <component name="RunManager" selected="TestNG.publicPageFunctionalTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.unitedcoder.Main" />
       <module name="AdobeMagento_eCommercePlatformTestAutomation" />
@@ -76,10 +76,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="publicPageFunctionalTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AdobeMagento_eCommercePlatformTestAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="frontpagetestcases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="frontpagetestcases" />
+      <option name="MAIN_CLASS_NAME" value="frontpagetestcases.publicPageFunctionalTest" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="publicPageFunctionalTest.addProductToShoppingCart" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AdobeMagento_eCommercePlatformTestAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="frontpagetestcases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="frontpagetestcases" />
+      <option name="MAIN_CLASS_NAME" value="frontpagetestcases.publicPageFunctionalTest" />
+      <option name="METHOD_NAME" value="addProductToShoppingCart" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="publicPageFunctionalTest.loginToAccount" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="AdobeMagento_eCommercePlatformTestAutomation" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="publicPageFunctionalTest" />
+      <option name="MAIN_CLASS_NAME" value="frontpagetestcases.publicPageFunctionalTest" />
       <option name="METHOD_NAME" value="loginToAccount" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -91,7 +126,7 @@
     <configuration name="publicPageFunctionalTest.publicUserCreateAccount" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="AdobeMagento_eCommercePlatformTestAutomation" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="publicPageFunctionalTest" />
+      <option name="MAIN_CLASS_NAME" value="frontpagetestcases.publicPageFunctionalTest" />
       <option name="METHOD_NAME" value="publicUserCreateAccount" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -102,9 +137,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.publicPageFunctionalTest.loginToAccount" />
+        <item itemvalue="TestNG.publicPageFunctionalTest" />
+        <item itemvalue="TestNG.publicPageFunctionalTest.addProductToShoppingCart" />
         <item itemvalue="TestNG.publicPageFunctionalTest.publicUserCreateAccount" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="TestNG.publicPageFunctionalTest.loginToAccount" />
       </list>
     </recent_temporary>
   </component>
@@ -138,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701248591803</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="TestNg Frame work designed for Public Page">
+      <created>1701266435719</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701266435719</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +211,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="UI page design" />
     <MESSAGE value="UI Automation page design" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI Automation page design" />
+    <MESSAGE value="TestNg Frame work designed for Public Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="TestNg Frame work designed for Public Page" />
   </component>
 </project>

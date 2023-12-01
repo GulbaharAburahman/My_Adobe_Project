@@ -58,7 +58,7 @@ public class FunctionLibrary {
 
     public static void sleep() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
