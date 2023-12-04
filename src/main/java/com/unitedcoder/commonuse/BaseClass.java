@@ -1,11 +1,14 @@
 package com.unitedcoder.commonuse;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+
+import java.util.Set;
 
 
 public class BaseClass {
@@ -26,8 +29,15 @@ public class BaseClass {
   }
 
   public void navigateToPublicPage(){
+        driver.manage().window().maximize();
      driver.get(UtilityClass.readFromConfig("config.properties","publicPage_url"));
-     driver.manage().window().maximize();
+   Set <Cookie> cookies= driver.manage().getCookies();  // capture all the cookies from the browser.
+      System.out.println("Size of cookies:" +cookies.size());
+      for(Cookie eachCookie: cookies){
+         System.out.println(eachCookie.getName() +"; "+eachCookie.getValue());
+      }
+      driver.manage().deleteAllCookies();
+      System.out.println("Size : " +driver.manage().getCookies().size());
   }
 
   public void navigateToBackEnd(){
