@@ -7,6 +7,7 @@ import com.unitedcoder.commonuse.UtilityClass;
 import com.unitedcoder.frontend.PublicPage;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -18,6 +19,9 @@ public class publicPageFunctionalTest extends BaseClass {
     PublicPage publicPage;
     UtilityClass utilityClass =new UtilityClass();
     String excelFilePath="testdata/gulbahar.xlsx";
+
+    String email;
+    String password;
     @BeforeClass
     public void setup(){
        launchBrowser(BrowserType.valueOf(UtilityClass.readFromConfig("config.properties","browser")));
@@ -40,8 +44,8 @@ public class publicPageFunctionalTest extends BaseClass {
 
     @Test (priority = 2,description = "A registered user can login to His/Her Account with valid credentials")
     public void loginToAccount () throws IOException {
-     String email=utilityClass.getCellData(excelFilePath,0,2,2);
-     String password=utilityClass.getCellData(excelFilePath,0,2,3);
+    email=utilityClass.getCellData(excelFilePath,0,2,2);
+    password=utilityClass.getCellData(excelFilePath,0,2,3);
     publicPage.loginToAccount(email,password);
     Assert.assertTrue(publicPage.isLoginSuccessful());
     }
@@ -57,15 +61,19 @@ public class publicPageFunctionalTest extends BaseClass {
 
     @Test (priority = 4,description ="A user should be able to view My wish list")
       public void  viewMyWishList() throws IOException {
-        String rootCategory= utilityClass.getCellData(excelFilePath,1,2,0);
-        String subCategory= utilityClass.getCellData(excelFilePath,1,2,1);
-        String productName=utilityClass.getCellData(excelFilePath,1,2,2);
+        String rootCategory= utilityClass.getCellData(excelFilePath,1,1,0);
+        String subCategory= utilityClass.getCellData(excelFilePath,1,1,1);
+        String productName=utilityClass.getCellData(excelFilePath,1,1,2);
        publicPage.addToWishlist(false,rootCategory,subCategory,productName);
        Assert.assertTrue(publicPage.viewMyWishList(productName));
+       publicPage.logout();
     }
 
     @Test(priority =5, description = "A user should be able to check out the order")
-    public void checkoutOrder() throws InterruptedException {
+    public void checkoutOrder() throws InterruptedException, IOException {
+        email=utilityClass.getCellData(excelFilePath,0,2,2);
+        password=utilityClass.getCellData(excelFilePath,0,2,3);
+        publicPage.loginToAccount(email,password);
       publicPage.checkOutMyOrderAfterLogin(FunctionLibrary.getFakeAddress(),"Baltimore","21201",FunctionLibrary.getFakeTelNum(),
               "United States","Maryland ","flat rate","check / money order",null);
         Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());
@@ -73,7 +81,19 @@ public class publicPageFunctionalTest extends BaseClass {
 
     }
 
+    @Test(description = "A user should see News Letter Subscriptions Link and contents.")
+    public void seeNewsLetter(){
+        publicPage.loginToAccount("timthomas@gmail.com","1234567");
+        publicPage.seeNewsLetterSubscriptionsLink();
+        Assert.assertTrue(publicPage.isNewsLetterPageOpened());
+    }
 
+
+
+    @AfterClass
+    public void tearDown(){
+        teardown();
+    }
 
 
 

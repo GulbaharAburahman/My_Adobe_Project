@@ -23,7 +23,7 @@ FunctionLibrary functionLibrary;
     @Test(description = "A user can checkout his/her order as a guest")
     public void checkoutOrderAsGuest(){
         publicPage.addToCart(true,"excellent home & decor","","TITIAN RAW SILK PILLOW");
-        publicPage.checkoutMyOrderBeforeLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(), FunctionLibrary.getFakeEmail(),FunctionLibrary.getPassword(),"8 quay ","Auckland","New Zealand",
+        publicPage.checkoutMyOrderWithoutLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(), FunctionLibrary.getFakeEmail(),FunctionLibrary.getPassword(),"8 quay ","Auckland","New Zealand",
                 "","0600",FunctionLibrary.getFakeTelNum(),"free shipping","cash on delivery",null);
         Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());
         publicPage.logout();
@@ -34,7 +34,7 @@ FunctionLibrary functionLibrary;
         publicPage.addToCart(false,"Excellent Home & Decor","Electronics","Madison RX3400");
         publicPage.goToCheckout();
         publicPage.selectCheckoutMethod("register");
-        publicPage.checkoutMyOrderBeforeLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(),
+        publicPage.checkoutMyOrderWithoutLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(),
                 FunctionLibrary.getFakeEmail(),FunctionLibrary.getPassword(),"8 view Rd","New York","United States","New York",
                 "10003",FunctionLibrary.getFakeTelNum(),"flat rate","purchase order","SEDT88668866");
         Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());

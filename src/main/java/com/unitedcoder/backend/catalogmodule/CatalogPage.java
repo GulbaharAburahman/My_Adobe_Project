@@ -1,11 +1,8 @@
-package com.unitedcoder.backend.CatalogModule;
+package com.unitedcoder.backend.catalogmodule;
 
-import com.unitedcoder.backend.customerModule.CustomerManagerPage;
 import com.unitedcoder.commonuse.FunctionLibrary;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-
-import javax.xml.catalog.Catalog;
 
 public class CatalogManagerPage {
 
