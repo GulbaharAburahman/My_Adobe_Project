@@ -36,8 +36,6 @@ public class BaseClass {
       for(Cookie eachCookie: cookies){
          System.out.println(eachCookie.getName() +"; "+eachCookie.getValue());
       }
-      driver.manage().deleteAllCookies();
-      System.out.println("Size : " +driver.manage().getCookies().size());
   }
 
   public void navigateToBackEnd(){

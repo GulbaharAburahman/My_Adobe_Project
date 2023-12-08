@@ -1,4 +1,4 @@
-package frontpagetestcases;
+package frontendtests;
 
 import com.unitedcoder.commonuse.BaseClass;
 import com.unitedcoder.commonuse.BrowserType;
@@ -19,7 +19,6 @@ public class publicPageFunctionalTest extends BaseClass {
     PublicPage publicPage;
     UtilityClass utilityClass =new UtilityClass();
     String excelFilePath="testdata/gulbahar.xlsx";
-
     String email;
     String password;
     @BeforeClass
@@ -55,8 +54,8 @@ public class publicPageFunctionalTest extends BaseClass {
     String rootCategory= utilityClass.getCellData(excelFilePath,1,1,0);
     String subCategory= utilityClass.getCellData(excelFilePath,1,1,1);
     String productName=utilityClass.getCellData(excelFilePath,1,1,2);
-    publicPage.addToCart(true,rootCategory,subCategory,productName);
-    Assert.assertTrue(publicPage.isSuccessMessageDisplayed());
+    publicPage.addProductToCart(true,rootCategory,subCategory,productName);
+    Assert.assertTrue(publicPage.isAddToCartSuccessful());
     }
 
     @Test (priority = 4,description ="A user should be able to view My wish list")
@@ -64,9 +63,10 @@ public class publicPageFunctionalTest extends BaseClass {
         String rootCategory= utilityClass.getCellData(excelFilePath,1,1,0);
         String subCategory= utilityClass.getCellData(excelFilePath,1,1,1);
         String productName=utilityClass.getCellData(excelFilePath,1,1,2);
-       publicPage.addToWishlist(false,rootCategory,subCategory,productName);
-       Assert.assertTrue(publicPage.viewMyWishList(productName));
-       publicPage.logout();
+        publicPage.addProductToWishList(false,rootCategory,subCategory,productName);
+        Assert.assertTrue(publicPage.isSuccessMessageDisplayed());
+        Assert.assertTrue(publicPage.IsViewMyWishListSuccessful());
+        publicPage.logout();
     }
 
     @Test(priority =5, description = "A user should be able to check out the order")
@@ -74,7 +74,7 @@ public class publicPageFunctionalTest extends BaseClass {
         email=utilityClass.getCellData(excelFilePath,0,2,2);
         password=utilityClass.getCellData(excelFilePath,0,2,3);
         publicPage.loginToAccount(email,password);
-      publicPage.checkOutMyOrderAfterLogin(FunctionLibrary.getFakeAddress(),"Baltimore","21201",FunctionLibrary.getFakeTelNum(),
+        publicPage.checkOutMyOrderAfterLogin(FunctionLibrary.getFakeAddress(),"Baltimore","21201",FunctionLibrary.getFakeTelNum(),
               "United States","Maryland ","flat rate","check / money order",null);
         Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());
         publicPage.logout();

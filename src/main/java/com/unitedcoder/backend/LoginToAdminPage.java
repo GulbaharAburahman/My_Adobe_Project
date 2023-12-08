@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginToAdminPage {
 WebDriver driver;
 FunctionLibrary functionLibrary;
 final String configFile="config.properties";
@@ -26,14 +26,14 @@ String password=UtilityClass.readFromConfig(configFile,"backend_password");
     @FindBy(css = "input.form-button")
     WebElement loginButton;
 
-    public LoginPage(WebDriver driver) {
+    public LoginToAdminPage(WebDriver driver) {
         this.driver = driver;
         functionLibrary=new FunctionLibrary(driver);
         PageFactory.initElements(driver,this);
     }
 
 
-    public void  loginToAdminPanel(String role){
+    public void  loginToAdminPanelWithCredentials(String role){
         functionLibrary.waitForElementPresent(usernameField);
         switch (role.toLowerCase()){
             case "customermanager"  ->usernameField.sendKeys(customerManagerUsername);

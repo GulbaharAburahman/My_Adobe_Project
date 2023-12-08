@@ -24,8 +24,9 @@ public class FunctionLibrary {
 
 
     public void sleep(int seconds) throws InterruptedException {
-        Thread.sleep(1000L *seconds);
+        Thread.sleep(1000L * seconds);
     }
+
     public static String getTimeStamp() {
         LocalDateTime now = LocalDateTime.now();
         return DateTimeFormatter.ofPattern("yyyyMMddhhmmssSSS").format(now);
@@ -52,11 +53,18 @@ public class FunctionLibrary {
     public static String getFakeEmail() {
         return Faker.instance().internet().emailAddress();
     }
-    public static String getPassword(){
-        return Faker.instance().internet().password(7,10);
+
+    public static String getPassword() {
+        return Faker.instance().internet().password(7, 10);
     }
-    public static String getFakeAddress(){return Faker.instance().address().streetAddress();}
-    public static String getFakeTelNum(){return Faker.instance().phoneNumber().toString();}
+
+    public static String getFakeAddress() {
+        return Faker.instance().address().streetAddress();
+    }
+
+    public static String getFakeTelNum() {
+        return Faker.instance().phoneNumber().toString();
+    }
 
     public static void sleep() {
         try {
@@ -73,20 +81,20 @@ public class FunctionLibrary {
         wait.until(ExpectedConditions.alertIsPresent());
 
     }
-    public void waitForAlertAndAccept(){
+
+    public void waitForAlertAndAccept() {
         int timeOut = Integer.parseInt(UtilityClass.readFromConfig("config.properties", "timeout"));
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(timeOut));
-        Alert alert= wait.until(ExpectedConditions.alertIsPresent());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.accept();
     }
 
-    public void waitForAlertAndDismiss(){
+    public void waitForAlertAndDismiss() {
         int timeOut = Integer.parseInt(UtilityClass.readFromConfig("config.properties", "timeout"));
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(timeOut));
-        Alert alert= wait.until(ExpectedConditions.alertIsPresent());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.dismiss();
     }
-
 
 
     public static void takeScreenshot(String folderName, String fileName, WebDriver driver) throws IOException {
@@ -96,20 +104,32 @@ public class FunctionLibrary {
         FileUtils.copyFile(screenshotFile, imageFile);
     }
 
-    public void javaScriptClick(WebElement webElement){
-        JavascriptExecutor js=(JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click()",webElement);
+    public void javaScriptClick(WebElement webElement) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click()", webElement);
     }
 
-    public void javaScriptScroll(WebElement webElement){
-        JavascriptExecutor js=(JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);",webElement);
+    public void javaScriptScroll(WebElement webElement) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", webElement);
+    }
+
+
+    public static void takeScreenShot(String fileName, WebDriver driver) {
+        String timeStamp = getTimeStamp();
+        fileName = fileName + "-" + timeStamp;
+        File imageFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String folderName = UtilityClass.readFromConfig("config.properties", "screenshot");
+        try {
+            FileUtils.copyFile(imageFile, new File(folderName + File.separator + fileName + ".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
 
 }
-
 
 
 

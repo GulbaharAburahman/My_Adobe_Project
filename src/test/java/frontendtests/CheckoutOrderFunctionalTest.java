@@ -1,4 +1,4 @@
-package frontpagetestcases;
+package frontendtests;
 
 import com.unitedcoder.commonuse.BaseClass;
 import com.unitedcoder.commonuse.BrowserType;
@@ -31,7 +31,7 @@ FunctionLibrary functionLibrary;
 
     @Test(description="A new user checkouts as register")
             public void checkoutMyOrderAndRegister(){
-        publicPage.addToCart(false,"Excellent Home & Decor","Electronics","Madison RX3400");
+        publicPage.addProductToCart(false,"Excellent Home & Decor","Electronics","Madison RX3400");
         publicPage.goToCheckout();
         publicPage.selectCheckoutMethod("register");
         publicPage.checkoutMyOrderWithoutLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(),
@@ -44,9 +44,9 @@ FunctionLibrary functionLibrary;
 
 
     @Test(description = "A registered user with updated address book can check out order by retrieving info from address book")
-    public void checkoutOrderAfterLogin( ){
+    public void checkoutOrderAfterLogin( ) throws InterruptedException {
         publicPage.loginToAccount("timthomas@gmail.com","1234567");
-        publicPage.addToCart(true,"excellent home & decor",null,"TITIAN RAW SILK PILLOW");
+        publicPage.addProductToCart(true,"excellent home & decor",null,"TITIAN RAW SILK PILLOW");
        publicPage.checkOutMyOrderAfterLogin("8 quay ","Auckland","0600",
                FunctionLibrary.getFakeTelNum(),"New Zealand","","free shipping","cash on delivery",null);
        Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());
@@ -54,9 +54,9 @@ FunctionLibrary functionLibrary;
     }
 
     @Test (description = "A registered user who has not updated address book can check out order ")
-    public void checkoutOrderAfterNewlyRegister(){
+    public void checkoutOrderAfterNewlyRegister() throws InterruptedException {
       publicPage.createAccount(FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(),FunctionLibrary.getFakeEmail(),FunctionLibrary.getPassword());
-      publicPage.addToCart(true,"excellent home & decor","Bed & Bath","TITIAN RAW SILK PILLOW");
+      publicPage.addProductToCart(true,"excellent home & decor","Bed & Bath","TITIAN RAW SILK PILLOW");
       publicPage.goToCheckout();
       publicPage.checkOutMyOrderAfterLogin("12 Queen St","Auckland","0600","00648866888","New Zealand","","flat rate","cash on delivery",null);
       Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());

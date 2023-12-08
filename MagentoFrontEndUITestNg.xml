@@ -5,12 +5,12 @@
     </listeners>
     <test name=" Cubecart Customer Module UI Smoke Test One ">
         <classes>
-            <class name="frontpagetestcases.publicPageFunctionalTest" />
+            <class name="frontendtests.publicPageFunctionalTest" />
         </classes>
     </test>
     <test name="Magento FrontEnd UI Checkout Order Functional Test">
         <classes>
-            <class name="frontpagetestcases.CheckoutOrderFunctionalTest" />
+            <class name="frontendtests.CheckoutOrderFunctionalTest" />
         </classes>
     </test>
 
