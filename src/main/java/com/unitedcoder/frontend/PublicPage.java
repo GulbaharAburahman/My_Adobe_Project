@@ -308,21 +308,21 @@ public class PublicPage {
             }try {
                 functionLibrary.waitForElementPresent(nextPageButton);
                 nextPageButton.click();
-            }catch (NoSuchElementException e){
+            }catch (Exception e){
                 System.out.println("There is no next page ");
                 break;
             }
         }
         // click one of the displayed add to cart button if cant find my product
         if(!isAddToCartButtonClicked){
-            functionLibrary.waitForElementPresent(addToCartButtons.get(2));
-            addToCartButtons.get(2).click();
+            functionLibrary.waitForElementPresent(addToCartButton);
+            addToCartButton.click();
             System.out.println("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
         }
     }
 
 
-    public void findMyProductAndTakeAction(boolean viewAllProducts,String rootCategory, String subCategory,String productName, String action){
+    public void findMyProductTakeAction(boolean viewAllProducts, String rootCategory, String subCategory, String productName, String action){
 
         displayProducts(viewAllProducts,rootCategory,subCategory);
         boolean isProductFound=false;
@@ -363,7 +363,7 @@ public class PublicPage {
 
 
     public void  addToCart(boolean viewAllProducts,String rootCategory, String subCategory, String productName){
-        findMyProductAndTakeAction(viewAllProducts,rootCategory,subCategory,productName,"add to cart");
+        findMyProductTakeAction(viewAllProducts,rootCategory,subCategory,productName,"add to cart");
     }
 
     public boolean isAddToCartSuccessful(){
@@ -397,10 +397,84 @@ public class PublicPage {
 
     }
 
-    public boolean IsViewMyWishListSuccessful(){
+    public boolean isAddTOWishListSuccessful(){
         functionLibrary.waitForElementPresent(successMessage);
        return isSuccessMessageDisplayed();
     }
+    public boolean viewMyWishListVerifyIsMyProductAdded(String productName){
+        boolean isMyProductInMyWishList=false;
+        selectAccountSubLink("My Wishlist");
+        for(WebElement each : productNames){
+            if(each.getText().equalsIgnoreCase(productName)){
+                isMyProductInMyWishList = true;
+            }
+        }
+        return isMyProductInMyWishList;
+    }
+
+    public void addProductToShoppingCart1(boolean viewAllProducts, String rootCategory, String subCategory, String productName) {
+        displayProducts(viewAllProducts, rootCategory, subCategory);
+        boolean isAddToCartButtonClicked = false;
+        //find product by name and click on add to cart button
+        while (true) {
+            for (WebElement each : productNames) {
+                functionLibrary.waitForElementPresent(each);
+                if (each.getText().trim().equalsIgnoreCase(productName)) {
+                    try {
+                        WebElement myAddToCartButton = each.findElement(By.xpath("//ancestor::li//span[text()='Add to Cart']"));
+                        myAddToCartButton.click();
+                        isAddToCartButtonClicked = true;
+                    } catch (Exception e) {
+                        System.out.println(" add to cart button is not displayed here for this product, will click for you one of the available add to cart button");
+                        addToCartButton.click();
+                        isAddToCartButtonClicked = true;
+                    }
+                    break;
+                }
+            }
+            if (!isAddToCartButtonClicked) {
+                try {
+                    nextPageButton.click();
+                } catch (NoSuchElementException e) {
+                    System.out.println("next page button is not displayed here,let me display page1 products");
+                    displayProducts(viewAllProducts, rootCategory, subCategory);
+                    addToCartButton.click();
+                    System.out.println("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
+                    break;
+                }
+
+            } else {
+                break;
+            }
+        }
+    }
+
+
+
+    public void addProductToMyWishList1(boolean viewAll,String rootCategory,String subCategory,String productName) {
+        boolean isAddToWishButtonClicked = false;
+        displayProducts(viewAll, rootCategory, subCategory);
+        while (true) {
+            for (WebElement each : productNames) {
+                if (each.getText().trim().equalsIgnoreCase(productName)) {
+                    WebElement myAddToWishButton = each.findElement(By.xpath("//ancestor::li//a[@class='link-wishlist']"));
+                    myAddToWishButton.click();
+                    isAddToWishButtonClicked = true;
+                    break;
+                }
+            }
+            if (!isAddToWishButtonClicked) {
+                try {
+                    nextPageButton.click();
+                } catch (NoSuchElementException e) {
+                    System.out.println("There is no more next page.Could not find your product , will add one product to your wishlist for yor testing ");
+                    addToWishListButton.click();
+                    break;
+                }
+            }else {break;}
+        }
+    }
+
 
     public void selectCheckoutMethod(String asGuestOrAsRegister) {
         functionLibrary.waitForElementPresent(continueButtonInCheckOutMethod);

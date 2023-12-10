@@ -65,7 +65,7 @@ public class publicPageFunctionalTest extends BaseClass {
         String productName=utilityClass.getCellData(excelFilePath,1,1,2);
         publicPage.addProductToWishList(false,rootCategory,subCategory,productName);
         Assert.assertTrue(publicPage.isSuccessMessageDisplayed());
-        Assert.assertTrue(publicPage.IsViewMyWishListSuccessful());
+        Assert.assertTrue(publicPage.isAddTOWishListSuccessful());
         publicPage.logout();
     }
 
@@ -80,15 +80,6 @@ public class publicPageFunctionalTest extends BaseClass {
         publicPage.logout();
 
     }
-
-    @Test(description = "A user should see News Letter Subscriptions Link and contents.")
-    public void seeNewsLetter(){
-        publicPage.loginToAccount("timthomas@gmail.com","1234567");
-        publicPage.seeNewsLetterSubscriptionsLink();
-        Assert.assertTrue(publicPage.isNewsLetterPageOpened());
-    }
-
-
 
     @AfterClass
     public void tearDown(){

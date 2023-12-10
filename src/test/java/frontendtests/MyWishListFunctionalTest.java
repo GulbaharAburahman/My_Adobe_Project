@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class WishListFunctionalTest extends BaseClass {
+public class MyWishListFunctionalTest extends BaseClass {
 
         PublicPage publicPage;
         UtilityClass utilityClass = new UtilityClass();
@@ -36,7 +36,7 @@ public class WishListFunctionalTest extends BaseClass {
             String productName = utilityClass.getCellData(excelFilePath, 1, 2, 2);
             System.out.println(productName);
             publicPage.addProductToWishList(true, rootCategory, subCategory, productName);
-            Assert.assertTrue(publicPage.IsViewMyWishListSuccessful());
+            Assert.assertTrue(publicPage.isAddTOWishListSuccessful());
         }
 
 
