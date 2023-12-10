@@ -61,27 +61,42 @@ public class CustomerPage {
 
 
 public void  addCustomer(String website,String groupName,String firstname,String middleName,String lastname, String email, String DOB, String gender,boolean doYouWantWelcomeMail, String password ) {
+ functionLibrary.waitForElementPresent(customersLinkTab);
  customersLinkTab.click();
+ functionLibrary.waitForElementPresent(manageCustomers);
  manageCustomers.click();
+ functionLibrary.waitForElementPresent(addNewCustomerButton);
  addNewCustomerButton.click();
+ functionLibrary.waitForElementPresent(selectAssociateToWebsiteDropDown);
  Select selectWebSite = new Select(selectAssociateToWebsiteDropDown);
  selectWebSite.selectByVisibleText(website);
+ functionLibrary.waitForElementPresent(selectGroupField);
  Select selectGroup = new Select(selectGroupField);
  selectGroup.selectByVisibleText(groupName);
+ functionLibrary.waitForElementPresent(firstnameField);
  firstnameField.sendKeys(firstname);
+ functionLibrary.waitForElementPresent(middleNameField);
  middleNameField.sendKeys(middleName);
+ functionLibrary.waitForElementPresent(lastnameField);
  lastnameField.sendKeys(lastname);
+ functionLibrary.waitForElementPresent(emailField);
  emailField.sendKeys(email);
  dateOfBirthField.clear();
+ functionLibrary.waitForElementPresent(dateOfBirthField);
  dateOfBirthField.sendKeys(DOB);
+ functionLibrary.waitForElementPresent(selectGenderField);
  Select selectGender = new Select(selectGenderField);
  selectGender.selectByVisibleText(gender);
+ functionLibrary.waitForElementPresent(sendWelcomeEmailCheckBox);
  sendWelcomeEmailCheckBox.click();
+ functionLibrary.waitForElementPresent(passwordInputField);
  passwordInputField.sendKeys(password);
+ functionLibrary.waitForElementPresent(saveCustomerButton);
  saveCustomerButton.click();
 }
 
 public boolean isCustomerAdded(){
+ functionLibrary.waitForElementPresent(successMessage);
  return successMessage.isDisplayed();
 }
 

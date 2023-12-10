@@ -9,6 +9,7 @@ import com.unitedcoder.commonuse.FunctionLibrary;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class AddCustomerTest extends BaseClass {
     CustomerPage customerPage;
@@ -21,6 +22,7 @@ public class AddCustomerTest extends BaseClass {
         customerPage=new CustomerPage(driver);
     }
 
+    @Test()
     public void addCustomer(){
      String firstName=FunctionLibrary.getFakeFirstname();
      String lastname=FunctionLibrary.getFakeLastname();
@@ -33,9 +35,9 @@ public class AddCustomerTest extends BaseClass {
         Assert.assertTrue(customerPage.isCustomerAdded());
     }
 
-    @AfterClass()
+  /*  @AfterClass()
     public void tearDown(){
         teardown();
-    }
+    } */
 
 }
