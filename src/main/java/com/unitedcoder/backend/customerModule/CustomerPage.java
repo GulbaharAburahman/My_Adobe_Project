@@ -3,9 +3,12 @@ package com.unitedcoder.backend.customerModule;
 import com.unitedcoder.commonuse.FunctionLibrary;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class CustomerPage {
    WebDriver driver;
@@ -57,10 +60,23 @@ public class CustomerPage {
     WebElement saveCustomerButton;
     @FindBy(css = "li.success-msg")
     WebElement successMessage;
+    @FindBy(xpath ="//td[@class='title']")
+     WebElement currentYearMonthElement;
+    @FindBy(xpath = "//div[text()='«']")
+    WebElement previousYearButton;
+    @FindBy(xpath ="//div[text()='‹']")
+    WebElement previousMonthButton;
 
+    @FindAll(@FindBy(xpath ="//tr[@class='daysrow']//td[@class='day']" ))
+    List<WebElement> weekDatesElements;
+    @FindAll(@FindBy(xpath ="//tr[@class='daysrow']//td[@class='day weekend']"))
+    List<WebElement> weekendDatesElements;
 
+   @FindBy(id="_accountdob_trig")
+   WebElement calender;
 
-public void  addCustomer(String website,String groupName,String firstname,String middleName,String lastname, String email, String DOB, String gender,boolean doYouWantWelcomeMail, String password ) {
+   // ******************** manage customers section methods *****************
+public void  addCustomer(String website,String groupName,String firstname,String middleName,String lastname, String email,boolean doYouUseCalender, String DOB, String gender,boolean doYouWantWelcomeMail, String password ) {
  functionLibrary.waitForElementPresent(customersLinkTab);
  customersLinkTab.click();
  functionLibrary.waitForElementPresent(manageCustomers);
@@ -83,17 +99,122 @@ public void  addCustomer(String website,String groupName,String firstname,String
  emailField.sendKeys(email);
  dateOfBirthField.clear();
  functionLibrary.waitForElementPresent(dateOfBirthField);
- dateOfBirthField.sendKeys(DOB);
- functionLibrary.waitForElementPresent(selectGenderField);
- Select selectGender = new Select(selectGenderField);
- selectGender.selectByVisibleText(gender);
- functionLibrary.waitForElementPresent(sendWelcomeEmailCheckBox);
- sendWelcomeEmailCheckBox.click();
- functionLibrary.waitForElementPresent(passwordInputField);
- passwordInputField.sendKeys(password);
- functionLibrary.waitForElementPresent(saveCustomerButton);
- saveCustomerButton.click();
+ if (!doYouUseCalender) {
+  dateOfBirthField.sendKeys(DOB);
+ }else {useDatePicker(DOB);
+ }
+  functionLibrary.waitForElementPresent(selectGenderField);
+  Select selectGender = new Select(selectGenderField);
+  selectGender.selectByVisibleText(gender);
+  functionLibrary.waitForElementPresent(sendWelcomeEmailCheckBox);
+  sendWelcomeEmailCheckBox.click();
+  functionLibrary.waitForElementPresent(passwordInputField);
+  passwordInputField.sendKeys(password);
+  functionLibrary.waitForElementPresent(saveCustomerButton);
+  saveCustomerButton.click();
 }
+
+
+public void pickYear(String year) {
+  String[] currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+ if (Integer.parseInt(year) < Integer.parseInt("2024") && Integer.parseInt(year) > 1900) {
+  for (int i = 0; ; i++) {
+   String currentYear = currentYearAndMonth[1].trim();
+   if (!currentYear.equals(year)) {
+    previousYearButton.click();
+    currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+   } else {
+    System.out.println("The Year picked : " + currentYear);
+    break;
+   }
+  }
+ }else System.out.println("DOB year is invalid");
+}
+public void pickMonth(String monthInLetters) {
+ String[] currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+ String currentMonth = currentYearAndMonth[0].trim();
+ if (monthInLetters.length() != 0) {
+  for (int i = 0; ; i++) {
+   if (!currentMonth.equals(monthInLetters)) {
+    previousMonthButton.click();
+    currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+    currentMonth = currentYearAndMonth[0].trim();
+   } else {
+    System.out.println("The month picked : " + currentMonth);
+    break;
+   }
+  }
+ }else System.out.println("DOB month is invalid , picked current month: "+currentMonth);
+}
+
+public void pickDate(String expectedDate) {
+  int expectedDateInNumber = Integer.parseInt(expectedDate);
+  boolean isDatePicked = false;
+
+  for (WebElement each : weekDatesElements) {
+   int weekDate = Integer.parseInt(each.getText().trim());
+   if (weekDate == expectedDateInNumber) {
+    System.out.println("The date picked : " + weekDate);
+    each.click();
+    isDatePicked = true;
+    break;
+   }
+  }
+  if (!isDatePicked) {
+   for (WebElement each : weekendDatesElements) {
+    int weekendDate = Integer.parseInt(each.getText().trim());
+    if (weekendDate == expectedDateInNumber) {
+     System.out.println("clicked date is : " + weekendDate);
+     each.click();
+     isDatePicked = true;
+     break;
+    }
+   }
+  }
+
+  if (!isDatePicked) {
+   System.out.println("please check the date : " +expectedDate+ ",it is not valid date in this month . current date is entered for you ");
+  }
+}
+
+public String convertMonthInNumberToLetters(String month) {
+ int monthInNumber = Integer.parseInt(month);
+ String monthInLetters ="";
+ if (monthInNumber >= 1 && monthInNumber <= 12) {
+  switch (monthInNumber) {
+   case 1-> monthInLetters = "January";
+   case 2 -> monthInLetters = "February";
+   case 3-> monthInLetters = "March";
+   case 4 -> monthInLetters = "April";
+   case 5 -> monthInLetters = "May";
+   case 6-> monthInLetters = "June";
+   case 7 -> monthInLetters = "July";
+   case 8 -> monthInLetters = "August";
+   case 9 -> monthInLetters = "September";
+   case 10 -> monthInLetters = "October";
+   case 11 -> monthInLetters = "November";
+   case 12 -> monthInLetters = "December";
+  }
+ }else System.out.println("DOB month is invalid");
+  System.out.println("The month in number "+ monthInNumber +" is converted to :"+monthInLetters);
+  return monthInLetters;
+ }
+
+
+public void useDatePicker(String DOB){
+ System.out.println("Expected DOB :"+DOB);
+ calender.click();
+ String[] expectedDOBData=DOB.trim().split("/");
+ String year=expectedDOBData[2].trim();
+ String monthInNumber=expectedDOBData[0].trim();
+ String date =expectedDOBData[1].trim();
+ pickYear(year);
+ String monthInLetters= convertMonthInNumberToLetters(monthInNumber);
+ pickMonth(monthInLetters);
+ pickDate(date);
+
+}
+
 
 public boolean isCustomerAdded(){
  functionLibrary.waitForElementPresent(successMessage);

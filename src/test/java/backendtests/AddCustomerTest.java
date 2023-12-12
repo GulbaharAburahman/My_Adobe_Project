@@ -28,16 +28,16 @@ public class AddCustomerTest extends BaseClass {
      String lastname=FunctionLibrary.getFakeLastname();
      String password=FunctionLibrary.getPassword();
      String email=FunctionLibrary.getFakeEmail();
-     String DOB= Faker.instance().date().birthday().toString();
+     String DOB= "10/20/1988";
      String middleName=Faker.instance().name().nameWithMiddle();
-        customerPage.addCustomer("Admin","Senem",firstName,middleName,lastname,email,DOB,"Female",
-                true,password);
-        Assert.assertTrue(customerPage.isCustomerAdded());
+    customerPage.addCustomer("Admin","Senem",firstName,middleName,lastname,email,true,DOB,"Female",
+             true,password);
+    Assert.assertTrue(customerPage.isCustomerAdded());
     }
 
-  /*  @AfterClass()
+  @AfterClass()
     public void tearDown(){
         teardown();
-    } */
+    }
 
 }
