@@ -21,6 +21,8 @@ public class publicPageFunctionalTest extends BaseClass {
     String excelFilePath="testdata/gulbahar.xlsx";
     String email;
     String password;
+
+    
     @BeforeClass
     public void setup(){
        launchBrowser(BrowserType.valueOf(UtilityClass.readFromConfig("config.properties","browser")));

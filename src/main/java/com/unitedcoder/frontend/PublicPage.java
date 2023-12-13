@@ -1,6 +1,8 @@
 package com.unitedcoder.frontend;
 
 import com.unitedcoder.commonuse.FunctionLibrary;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
@@ -11,6 +13,9 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 public class PublicPage {
+
+ public  static Logger logger =LogManager.getLogger("PublicPage");
+
     WebDriver driver;
     FunctionLibrary functionLibrary;
 
@@ -195,6 +200,7 @@ public class PublicPage {
     }
 
     public void selectAccountSubLink(String subLinkName) {
+        logger.info("Click on "+subLinkName +" from Account dropdown list");
         functionLibrary.waitForElementPresent(accountIcon);
         accountIcon.click();
         for (WebElement each : accountDropDownSubLinks) {
@@ -206,25 +212,30 @@ public class PublicPage {
         }
     }
     public boolean isSuccessMessageDisplayed(){
+        logger.info(successMessage.getText());
         return successMessage.isDisplayed();
     }
     public boolean isLoginSuccessful(){
+        logger.info(welcomeMessage.getText());
         return welcomeMessage.isDisplayed();
     }
 
     public void goToCheckout() {
+        logger.info("click on check out link from Account dropdown list ");
         functionLibrary.waitForElementPresent(accountIcon);
         selectAccountSubLink("Checkout");
     }
 
 
     public void logout(){
+        logger.info("log out ");
         functionLibrary.waitForElementPresent(accountIcon);
         selectAccountSubLink("Log Out");
     }
 
 
     public void loginToAccount(String email, String password){
+        logger.info("login");
         functionLibrary.waitForElementPresent(accountIcon);
         selectAccountSubLink("Log In");
         functionLibrary.waitForElementPresent(loginEmailField);
@@ -237,6 +248,7 @@ public class PublicPage {
 
 
     public void  createAccount( String firstname, String lastname,String email, String password){
+        logger.info("create an account");
         selectAccountSubLink("Register");
         functionLibrary.waitForElementPresent(firstnameField);
         firstnameField.sendKeys(firstname);
@@ -263,6 +275,7 @@ public class PublicPage {
             //find root category
             Actions actions = new Actions(driver);
             for (WebElement eachRoot : allRootCategories) {
+                functionLibrary.setFluentWaitForElementPresent(eachRoot);
                 if (eachRoot.getText().trim().equalsIgnoreCase(rootCategory)) {
                     String viewOptions = String.valueOf(viewAllProducts);
                     switch (viewOptions) {
@@ -271,6 +284,7 @@ public class PublicPage {
                             actions.moveToElement(eachRoot).build().perform();
                             //find subCategory
                             for (WebElement eachCategory : categoriesDropdownLinks) {
+                                functionLibrary.waitForElementPresent(eachCategory);
                                 if (eachCategory.getText().trim().equalsIgnoreCase(subCategory)) {
                                     eachCategory.click();
                                     isSubCategoryFund = true;
@@ -288,7 +302,7 @@ public class PublicPage {
                 }
             }
             if(!isRootCategoryFound){
-                System.out.println("could not find matching root category: " +rootCategory  + ", first displayed root category selected for your testing ");
+                logger.info("could not find matching root category: " +rootCategory  + ", first displayed root category selected for your testing ");
                 allRootCategories.get(0).click();
             }
     }
@@ -304,12 +318,12 @@ public class PublicPage {
                 isAddToCartButtonClicked=true;
                 break;
             } catch (NoSuchElementException e) {
-                System.out.println("add to cart button is not displayed in this page for this product ");
+                logger.info("add to cart button is not displayed in this page for this product ");
             }try {
                 functionLibrary.waitForElementPresent(nextPageButton);
                 nextPageButton.click();
             }catch (Exception e){
-                System.out.println("There is no next page ");
+               logger.info("There is no next page ");
                 break;
             }
         }
@@ -317,13 +331,13 @@ public class PublicPage {
         if(!isAddToCartButtonClicked){
             functionLibrary.waitForElementPresent(addToCartButton);
             addToCartButton.click();
-            System.out.println("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
+           logger.info("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
         }
     }
 
 
     public void findMyProductTakeAction(boolean viewAllProducts, String rootCategory, String subCategory, String productName, String action){
-
+         logger.info("Display products");
         displayProducts(viewAllProducts,rootCategory,subCategory);
         boolean isProductFound=false;
         //find product by name and do something
@@ -355,7 +369,7 @@ public class PublicPage {
                 }
             }
             if(!isProductFound){
-                System.out.println("your product is not found");
+                logger.info("your product is not found");
                 addToCartButton.click();
             }
     }
@@ -367,6 +381,7 @@ public class PublicPage {
     }
 
     public boolean isAddToCartSuccessful(){
+        logger.info("verify add product to cart : "+myShoppingCartMessage.getText());
         return myShoppingCartMessage.isDisplayed() || myShoppingCartPageTile.isDisplayed();
     }
 
@@ -380,24 +395,25 @@ public class PublicPage {
                 isAddToCartButtonClicked=true;
                 break;
             } catch (NoSuchElementException e) {
-                System.out.println("can't not find your product in this page");
+                logger.info("can't not find your product in this page");
             }try {
                 driver.findElement(By.cssSelector("a.next.i-next")).click();
             } catch (NoSuchElementException e) {
-                System.out.println("there is no next page , couldn't find your product");
+                logger.info("there is no next page , couldn't find your product");
                 break;
             }
         }
         if(!isAddToCartButtonClicked) {
             functionLibrary.waitForElementPresent(addToWishListButton);
             addToWishListButton.click();
-            System.out.println("Can't find your product,one of the displayed add to wishlist button is clicked for your testing");
+            logger.info("Can't find your product,one of the displayed add to wishlist button is clicked for your testing");
         }
 
 
     }
 
     public boolean isAddTOWishListSuccessful(){
+        logger.info(successMessage.getText());
         functionLibrary.waitForElementPresent(successMessage);
        return isSuccessMessageDisplayed();
     }
@@ -436,10 +452,10 @@ public class PublicPage {
                 try {
                     nextPageButton.click();
                 } catch (NoSuchElementException e) {
-                    System.out.println("next page button is not displayed here,let me display page1 products");
+                   logger.info("next page button is not displayed here,let me display page1 products");
                     displayProducts(viewAllProducts, rootCategory, subCategory);
                     addToCartButton.click();
-                    System.out.println("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
+                    logger.info("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
                     break;
                 }
 
@@ -477,7 +493,7 @@ public class PublicPage {
 
 
     public void selectCheckoutMethod(String asGuestOrAsRegister) {
-        functionLibrary.waitForElementPresent(continueButtonInCheckOutMethod);
+        functionLibrary.setFluentWaitForElementPresent(continueButtonInCheckOutMethod);
         switch (asGuestOrAsRegister.toLowerCase()) {
             case "guest" -> {
                 functionLibrary.waitForElementPresent(checkoutAsGuestRadioButton);
@@ -529,19 +545,19 @@ public class PublicPage {
 
         functionLibrary.waitForElementPresent(shipToThisAddress);
         shipToThisAddress.click();
-        functionLibrary.waitForElementPresent(continueButtonInBilling);
+        functionLibrary.setFluentWaitForElementClickable(continueButtonInBilling);
         continueButtonInBilling.click();
     }
 
     public void provideShippingAndPaymentInfo(String shippingMethod, String paymentMethod, String purchaseOrderNumber) {
-        functionLibrary.waitForElementPresent(flatRateRadioButton);
+        functionLibrary.setFluentWaitForElementClickable(flatRateRadioButton);
         switch (shippingMethod.toLowerCase()) {
             case ("flat rate") -> flatRateRadioButton.click();
             case ("free shipping") -> freeShippingRadioButton.click();
         }
-        functionLibrary.waitForElementPresent(continueButtonInShippingMethod);
+        functionLibrary.setFluentWaitForElementClickable(continueButtonInShippingMethod);
         continueButtonInShippingMethod.click();
-        functionLibrary.waitForElementPresent(check_moneyOrder_radioButton);
+        functionLibrary.setFluentWaitForElementClickable(check_moneyOrder_radioButton);
         switch (paymentMethod.toLowerCase()) {
             case "check / money order" -> {
                 check_moneyOrder_radioButton.click();
@@ -557,10 +573,12 @@ public class PublicPage {
                 cashOnDelivery_radioButton.click();
             }
         }
+        functionLibrary.setFluentWaitForElementClickable(continueButtonInPayment);
         continueButtonInPayment.click();
-        functionLibrary.waitForElementPresent(placeOrderButton);
+        functionLibrary.setFluentWaitForElementClickable(placeOrderButton);
         placeOrderButton.click();
-        functionLibrary.waitForElementPresent(checkoutSuccessConfirmation);
+        functionLibrary.setFluentWaitForElementPresent(checkoutSuccessConfirmation);
+        logger.info(checkoutSuccessConfirmation.getText());
     }
 
 
@@ -570,10 +588,15 @@ public class PublicPage {
 
 
     public void checkoutMyOrderWithoutLogin(String asGuestOrRegister,String firstName, String lastName,String email,String password,String address, String city, String country, String state,
+
                                             String zipCode, String telNum,String shippingMethod, String paymentMethod,String purchaseOrderNumber){
+        logger.info("Click on checkout link from Account Dropdown list");
         goToCheckout();
+        logger.info("select checkout method");
         selectCheckoutMethod(asGuestOrRegister);
+        logger.info("fill out billing info");
         fillOutBillingInfoAsGuest(firstName,lastName,email,password,address,city,country,state,zipCode,telNum);
+        logger.info("shipping and payment info");
         provideShippingAndPaymentInfo(shippingMethod,paymentMethod,purchaseOrderNumber);
     }
 
@@ -581,7 +604,7 @@ public class PublicPage {
     public void checkOutMyOrderAfterLogin(String address, String city,String zipCode,String telNum,String country,String state,
                                           String shippingMethod,String paymentMethod,String purchaseOrderNumber){
         goToCheckout();
-        functionLibrary.waitForElementPresent(continueButtonInBilling);
+        functionLibrary.setFluentWaitForElementPresent(continueButtonInBilling);
         try {
             billingAddress1Field.sendKeys(address);
             billingCityField.sendKeys(city);
@@ -635,6 +658,7 @@ public class PublicPage {
 
     public boolean isPasswordChanged(){
         functionLibrary.waitForElementPresent(successMessage);
+        logger.info("user change password validation : "+successMessage.getText());
         return successMessage.isDisplayed();
 
     }

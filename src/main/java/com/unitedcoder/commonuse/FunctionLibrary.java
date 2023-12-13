@@ -4,6 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -37,6 +39,27 @@ public class FunctionLibrary {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOut));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void setFluentWaitForElementPresent(WebElement element){
+        int timeOutInSecond=Integer.parseInt(UtilityClass.readFromConfig("config.properties","fluentWait_timeout"));
+        int pollingEveryInSecond=Integer.parseInt(UtilityClass.readFromConfig("config.properties","fluentWait_pollingEvery_inSeconds"));
+        Wait<WebDriver> wait=new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeOutInSecond))
+                .pollingEvery(Duration.ofMillis(pollingEveryInSecond))
+                .ignoring(NoSuchElementException.class);
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public  void setFluentWaitForElementClickable(WebElement element) {
+        int timeOutInSecond = Integer.parseInt(UtilityClass.readFromConfig("config.properties", "fluentWait_timeout"));
+        int pollingEveryInSecond = Integer.parseInt(UtilityClass.readFromConfig("config.properties", "fluentWait_pollingEvery_inSeconds"));
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeOutInSecond))
+                .pollingEvery(Duration.ofMillis(pollingEveryInSecond))
+                .ignoring(NoSuchElementException.class);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
 
     public static String getRandomString() {
         return RandomStringUtils.randomAlphabetic(6);

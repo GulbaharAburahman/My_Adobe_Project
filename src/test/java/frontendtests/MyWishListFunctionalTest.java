@@ -5,6 +5,7 @@ import com.unitedcoder.commonuse.BrowserType;
 import com.unitedcoder.commonuse.UtilityClass;
 import com.unitedcoder.frontend.PublicPage;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -31,13 +32,18 @@ public class MyWishListFunctionalTest extends BaseClass {
 
         @Test(description = "A registered user should be able add product to myWishlist")
         public void addProductToMyWishlist() throws IOException, InterruptedException {
-            String rootCategory = utilityClass.getCellData(excelFilePath, 1, 2, 0);
-            String subCategory = utilityClass.getCellData(excelFilePath, 1, 2, 1);
-            String productName = utilityClass.getCellData(excelFilePath, 1, 2, 2);
+            String rootCategory = utilityClass.getCellData(excelFilePath, 1, 1, 0);
+            String subCategory = utilityClass.getCellData(excelFilePath, 1, 1, 1);
+            String productName = utilityClass.getCellData(excelFilePath, 1, 1, 2);
             System.out.println(productName);
-            publicPage.addProductToWishList(true, rootCategory, subCategory, productName);
+            publicPage.addProductToWishList(true, rootCategory, subCategory,productName);
             Assert.assertTrue(publicPage.isAddTOWishListSuccessful());
         }
+
+       @AfterClass
+    public void tearDown(){
+            teardown();
+       }
 
 
 
