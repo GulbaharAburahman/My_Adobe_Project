@@ -17,7 +17,7 @@ import java.util.Set;
 public class BaseClass {
 
  public  WebDriver driver;
- public static Logger log = LogManager.getLogger("BaseClass");
+ public  Logger log = LogManager.getLogger("BaseClass");
 
     public void launchBrowser(BrowserType browserType ) {
         log.info("launch browser");

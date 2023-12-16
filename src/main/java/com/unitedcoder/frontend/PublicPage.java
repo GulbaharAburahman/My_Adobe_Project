@@ -10,11 +10,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.lang.invoke.SwitchPoint;
 import java.util.List;
 
 public class PublicPage {
 
- public  static Logger logger =LogManager.getLogger("PublicPage");
+    public  Logger log = LogManager.getLogger("PublicPage");
 
     WebDriver driver;
     FunctionLibrary functionLibrary;
@@ -29,7 +30,7 @@ public class PublicPage {
     @FindAll(@FindBy(xpath = "//div[@id='header-account']//a"))
     List<WebElement> accountDropDownSubLinks;
 
-    @FindAll(@FindBy(xpath = "//ol[@class='nav-primary']//li//li//a"))
+    @FindAll(@FindBy(xpath = "//ol[@class='nav-primary']//ul[@class='level0']//li/a[text()]"))
     List<WebElement> categoriesDropdownLinks;
 
     @FindAll(@FindBy(xpath = "//h2[@class='product-name']/a[text()]"))
@@ -43,14 +44,14 @@ public class PublicPage {
     WebElement successMessage;
 
     //********************** add to cart section *************************
-    @FindAll( @FindBy(xpath = "//div[@class='actions']//button[@title='Add to Cart']"))
+    @FindAll(@FindBy(xpath = "//div[@class='actions']//button[@title='Add to Cart']"))
     List<WebElement> addToCartButtons;
-    @FindBy(xpath ="//div[@class='actions']//button[@title='Add to Cart']" )
+    @FindBy(xpath = "//div[@class='actions']//button[@title='Add to Cart']")
     WebElement addToCartButton;
 
-    @FindBy(css ="div.page-title.title-buttons>h1")
+    @FindBy(css = "div.page-title.title-buttons>h1")
     WebElement myShoppingCartPageTile;
-    @FindBy(css="div.cart.display-single-price>ul.messages")
+    @FindBy(css = "div.cart.display-single-price>ul.messages")
     WebElement myShoppingCartMessage;
 
     //*************** Create Account Section ***************************
@@ -65,7 +66,7 @@ public class PublicPage {
     WebElement passwordField;
     @FindBy(name = "confirmation")
     WebElement confirmPasswordField;
-    @FindBy(css= "button.button[title='Register']")
+    @FindBy(css = "button.button[title='Register']")
     WebElement registerButton;
     @FindBy(css = "input#newsletter.input-text.required-entry.validate-email")
     WebElement newsLetterSubscribe;
@@ -95,13 +96,13 @@ public class PublicPage {
     @FindBy(css = "div.page-title.title-buttons>h1")
     WebElement myWishListPageTitle;
 
-  @FindAll(@FindBy(css = "h3.product-name>a"))
-  List < WebElement > wishlistProductNames;
+    @FindAll(@FindBy(css = "h3.product-name>a"))
+    List<WebElement> wishlistProductNames;
 
-  @FindBy(css = "a.link-wishlist")
-  WebElement addToWishListButton;
-  @FindAll(@FindBy(css ="a.link-wishlist" ))
-  List<WebElement> addToWishListButtons;
+    @FindBy(css = "a.link-wishlist")
+    WebElement addToWishListButton;
+    @FindAll(@FindBy(css = "a.link-wishlist"))
+    List<WebElement> addToWishListButtons;
 
 
     //***************** Check out Billing information Section ***********************
@@ -113,23 +114,23 @@ public class PublicPage {
     WebElement billingLastNameField;
     @FindBy(id = "billing:email")
     WebElement billingEmailField;
-    @FindBy(id="billing:street1")
+    @FindBy(id = "billing:street1")
     WebElement billingAddress1Field;
     @FindBy(id = "billing:city")
     WebElement billingCityField;
     @FindBy(id = "billing:region_id")
     WebElement billingSelectState;
-    @FindBy(id= "billing:postcode")
+    @FindBy(id = "billing:postcode")
     WebElement billingPostalCodeField;
-    @FindBy(id= "billing:country_id")
+    @FindBy(id = "billing:country_id")
     WebElement billingSelectCountry;
     @FindBy(id = "billing:telephone")
     WebElement billingTelephoneField;
-    @FindBy(id="billing:customer_password")
+    @FindBy(id = "billing:customer_password")
     WebElement billingPasswordField;
-    @FindBy(id="billing:confirm_password")
+    @FindBy(id = "billing:confirm_password")
     WebElement billingConfirmPasswordField;
-    @FindBy(id="billing:use_for_shipping_yes")
+    @FindBy(id = "billing:use_for_shipping_yes")
     WebElement shipToThisAddress;
 
     @FindBy(css = "#billing-buttons-container > button")
@@ -137,7 +138,7 @@ public class PublicPage {
 
 
     //********************** Shipping Method Section *************************************
-    @FindBy(id="s_method_flatrate_flatrate" )
+    @FindBy(id = "s_method_flatrate_flatrate")
     WebElement flatRateRadioButton;
     @FindBy(css = "input#s_method_freeshipping_freeshipping")
     WebElement freeShippingRadioButton;
@@ -185,57 +186,57 @@ public class PublicPage {
 
 
     // *****************   view orders section  *************************
-    @FindBy(css= "div.block-content > ul > li:nth-child(4) > a")
+    @FindBy(css = "div.block-content > ul > li:nth-child(4) > a")
     WebElement myOrdersLink;
     @FindBy(css = "div.my-account > div.page-title > h1")
     WebElement isMyOrderPage;
 
 
-
-
     public PublicPage(WebDriver driver) {
-        this.driver=driver;
-        PageFactory.initElements(driver,this);
-        functionLibrary=new FunctionLibrary(driver);
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        functionLibrary = new FunctionLibrary(driver);
     }
 
     public void selectAccountSubLink(String subLinkName) {
-        logger.info("Click on "+subLinkName +" from Account dropdown list");
+        log.info("Click on " + subLinkName + " from Account dropdown list");
         functionLibrary.waitForElementPresent(accountIcon);
         accountIcon.click();
         for (WebElement each : accountDropDownSubLinks) {
             functionLibrary.waitForElementPresent(each);
-            if (each.getText().equalsIgnoreCase(subLinkName)||each.getText().startsWith(subLinkName)) {
+            if (each.getText().equalsIgnoreCase(subLinkName) || each.getText().startsWith(subLinkName)) {
                 each.click();
                 break;
             }
         }
     }
-    public boolean isSuccessMessageDisplayed(){
-        logger.info(successMessage.getText());
+
+    public boolean isSuccessMessageDisplayed() {
+        log.info(successMessage.getText());
         return successMessage.isDisplayed();
     }
-    public boolean isLoginSuccessful(){
-        logger.info(welcomeMessage.getText());
+
+    public boolean isLoginSuccessful() {
+        log.info(welcomeMessage.getText());
         return welcomeMessage.isDisplayed();
     }
 
     public void goToCheckout() {
-        logger.info("click on check out link from Account dropdown list ");
+        log.info("click on check out link from Account dropdown list ");
         functionLibrary.waitForElementPresent(accountIcon);
         selectAccountSubLink("Checkout");
     }
 
 
-    public void logout(){
-        logger.info("log out ");
+    public void logout() {
+        log.info("log out ");
         functionLibrary.waitForElementPresent(accountIcon);
         selectAccountSubLink("Log Out");
     }
 
 
-    public void loginToAccount(String email, String password){
-        logger.info("login");
+    public void loginToAccount(String email, String password) {
+        log.info("login");
         functionLibrary.waitForElementPresent(accountIcon);
         selectAccountSubLink("Log In");
         functionLibrary.waitForElementPresent(loginEmailField);
@@ -247,8 +248,8 @@ public class PublicPage {
     }
 
 
-    public void  createAccount( String firstname, String lastname,String email, String password){
-        logger.info("create an account");
+    public void createAccount(String firstname, String lastname, String email, String password) {
+        log.info("create an account");
         selectAccountSubLink("Register");
         functionLibrary.waitForElementPresent(firstnameField);
         firstnameField.sendKeys(firstname);
@@ -265,80 +266,73 @@ public class PublicPage {
     }
 
 
-    public boolean isAccountCreated(){
+    public boolean isAccountCreated() {
         return successMessage.isDisplayed();
     }
 
-    public void displayProducts( boolean viewAllProducts, String rootCategory,String subCategory ) {
+    public void displayProducts( String rootCategory,String subCategory ) {
+        log.info("Display products");
         boolean isRootCategoryFound=false;
-        boolean isSubCategoryFund=false;
-            //find root category
-            Actions actions = new Actions(driver);
-            for (WebElement eachRoot : allRootCategories) {
-                functionLibrary.setFluentWaitForElementPresent(eachRoot);
-                if (eachRoot.getText().trim().equalsIgnoreCase(rootCategory)) {
-                    String viewOptions = String.valueOf(viewAllProducts);
-                    switch (viewOptions) {
-                        case "true" -> actions.moveToElement(eachRoot).click().build().perform();
-                        case "false" -> {
-                            actions.moveToElement(eachRoot).build().perform();
-                            //find subCategory
-                            for (WebElement eachCategory : categoriesDropdownLinks) {
-                                functionLibrary.waitForElementPresent(eachCategory);
-                                if (eachCategory.getText().trim().equalsIgnoreCase(subCategory)) {
-                                    eachCategory.click();
-                                    isSubCategoryFund = true;
-                                    break;
-                                }
-                            }
-                            if (!isSubCategoryFund) {
-                                System.out.println("could not find matching subCategory , will display all products under the root category");
-                                eachRoot.click();
-                            }
-                        }
-                    }
-                    isRootCategoryFound=true;
+        //find root category
+        Actions actions = new Actions(driver);
+        for (WebElement eachRoot : allRootCategories) {
+            functionLibrary.waitForElementPresent(eachRoot);
+            if (eachRoot.getText().trim().equalsIgnoreCase(rootCategory)) {
+                actions.moveToElement(eachRoot).build().perform();
+                isRootCategoryFound = true;
+                try {
+                    String myXpath = String.format("//ul[@class='level0']//li/a[contains(text(),'%s')]", subCategory);
+                    WebElement mySubCategory = driver.findElement(By.xpath(myXpath));
+                    functionLibrary.waitForElementPresent(mySubCategory);
+                    mySubCategory.click();
                     break;
+                } catch (NoSuchElementException e) {
+                    log.info("could not find matching subCategory , will display all products under the root category");
+                    eachRoot.click();
+                  break;
                 }
             }
-            if(!isRootCategoryFound){
-                logger.info("could not find matching root category: " +rootCategory  + ", first displayed root category selected for your testing ");
-                allRootCategories.get(0).click();
-            }
+        }if(!isRootCategoryFound) {
+            allRootCategories.get(0).click();
+            log.info("could not find matching root category: " + rootCategory + ", first displayed root category selected for your testing ");
+        }
     }
 
 
-    public void addProductToCart(boolean viewAllProducts,String rootCategory, String subCategory,String productName) {
-        boolean isAddToCartButtonClicked=false;
-        displayProducts(viewAllProducts, rootCategory, subCategory);
+    public void addProductToCart( String rootCategory, String subCategory, String productName) {
+        boolean isAddToCartButtonClicked = false;
+        displayProducts( rootCategory, subCategory);
         String addToCartButtonXpath = String.format("//h2[@class='product-name']/a[text()='%s']//ancestor::li//span[text()='Add to Cart']", productName);
         while (true) {
             try {
                 driver.findElement(By.xpath(addToCartButtonXpath)).click();
-                isAddToCartButtonClicked=true;
+                isAddToCartButtonClicked = true;
                 break;
             } catch (NoSuchElementException e) {
-                logger.info("add to cart button is not displayed in this page for this product ");
-            }try {
+                log.info("add to cart button is not displayed in this page for this product ");
+            }
+            try {
                 functionLibrary.waitForElementPresent(nextPageButton);
                 nextPageButton.click();
-            }catch (Exception e){
-               logger.info("There is no next page ");
+            } catch (Exception e) {
+                log.info("There is no next page ");
                 break;
             }
         }
         // click one of the displayed add to cart button if cant find my product
-        if(!isAddToCartButtonClicked){
+        if (!isAddToCartButtonClicked) {
             functionLibrary.waitForElementPresent(addToCartButton);
             addToCartButton.click();
-           logger.info("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
+            log.info("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
         }
     }
 
 
+
+
     public void findMyProductTakeAction(boolean viewAllProducts, String rootCategory, String subCategory, String productName, String action){
-         logger.info("Display products");
-        displayProducts(viewAllProducts,rootCategory,subCategory);
+         log.info("Display products");
+        displayProducts(rootCategory,subCategory);
         boolean isProductFound=false;
         //find product by name and do something
             for (WebElement each : productNames) {
@@ -369,7 +363,7 @@ public class PublicPage {
                 }
             }
             if(!isProductFound){
-                logger.info("your product is not found");
+                log.info("your product is not found");
                 addToCartButton.click();
             }
     }
@@ -381,39 +375,39 @@ public class PublicPage {
     }
 
     public boolean isAddToCartSuccessful(){
-        logger.info("verify add product to cart : "+myShoppingCartMessage.getText());
+        log.info("verify add product to cart : "+myShoppingCartMessage.getText());
         return myShoppingCartMessage.isDisplayed() || myShoppingCartPageTile.isDisplayed();
     }
 
-    public void  addProductToWishList(boolean viewAllProducts,String rootCategory, String subCategory, String productName) {
-        displayProducts(viewAllProducts, rootCategory, subCategory);
+    public void  addProductToWishList(String rootCategory, String subCategory, String productName) {
+        displayProducts( rootCategory, subCategory);
         String addToWishButtonXpath = String.format("//h2[@class='product-name']/a[text()='%s']//ancestor::li//a[@class='link-wishlist']", productName);
-        boolean isAddToCartButtonClicked=false;
+        boolean isAddToWishListButtonClicked=false;
         while (true) {
             try {
                 driver.findElement(By.xpath(addToWishButtonXpath)).click();
-                isAddToCartButtonClicked=true;
+                isAddToWishListButtonClicked=true;
                 break;
             } catch (NoSuchElementException e) {
-                logger.info("can't not find your product in this page");
+                log.info("can't not find your product in this page");
             }try {
                 driver.findElement(By.cssSelector("a.next.i-next")).click();
             } catch (NoSuchElementException e) {
-                logger.info("there is no next page , couldn't find your product");
+                log.info("there is no next page , couldn't find your product");
                 break;
             }
         }
-        if(!isAddToCartButtonClicked) {
+        if(!isAddToWishListButtonClicked) {
             functionLibrary.waitForElementPresent(addToWishListButton);
             addToWishListButton.click();
-            logger.info("Can't find your product,one of the displayed add to wishlist button is clicked for your testing");
+            log.info("Can't find your product,one of the displayed add to wishlist button is clicked for your testing");
         }
 
 
     }
 
     public boolean isAddTOWishListSuccessful(){
-        logger.info(successMessage.getText());
+        log.info(successMessage.getText());
         functionLibrary.waitForElementPresent(successMessage);
        return isSuccessMessageDisplayed();
     }
@@ -428,8 +422,8 @@ public class PublicPage {
         return isMyProductInMyWishList;
     }
 
-    public void addProductToShoppingCart1(boolean viewAllProducts, String rootCategory, String subCategory, String productName) {
-        displayProducts(viewAllProducts, rootCategory, subCategory);
+    public void addProductToShoppingCart1( String rootCategory, String subCategory, String productName) {
+        displayProducts(rootCategory, subCategory);
         boolean isAddToCartButtonClicked = false;
         //find product by name and click on add to cart button
         while (true) {
@@ -452,10 +446,10 @@ public class PublicPage {
                 try {
                     nextPageButton.click();
                 } catch (NoSuchElementException e) {
-                   logger.info("next page button is not displayed here,let me display page1 products");
-                    displayProducts(viewAllProducts, rootCategory, subCategory);
+                   log.info("next page button is not displayed here,let me display page1 products");
+                    displayProducts(rootCategory, subCategory);
                     addToCartButton.click();
-                    logger.info("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
+                    log.info("could not find add to cart button for your product , clicked one of the displayed add to cart button for your testing");
                     break;
                 }
 
@@ -469,7 +463,7 @@ public class PublicPage {
 
     public void addProductToMyWishList1(boolean viewAll,String rootCategory,String subCategory,String productName) {
         boolean isAddToWishButtonClicked = false;
-        displayProducts(viewAll, rootCategory, subCategory);
+        displayProducts(rootCategory, subCategory);
         while (true) {
             for (WebElement each : productNames) {
                 if (each.getText().trim().equalsIgnoreCase(productName)) {
@@ -578,7 +572,7 @@ public class PublicPage {
         functionLibrary.setFluentWaitForElementClickable(placeOrderButton);
         placeOrderButton.click();
         functionLibrary.setFluentWaitForElementPresent(checkoutSuccessConfirmation);
-        logger.info(checkoutSuccessConfirmation.getText());
+        log.info(checkoutSuccessConfirmation.getText());
     }
 
 
@@ -590,13 +584,13 @@ public class PublicPage {
     public void checkoutMyOrderWithoutLogin(String asGuestOrRegister,String firstName, String lastName,String email,String password,String address, String city, String country, String state,
 
                                             String zipCode, String telNum,String shippingMethod, String paymentMethod,String purchaseOrderNumber){
-        logger.info("Click on checkout link from Account Dropdown list");
+        log.info("Click on checkout link from Account Dropdown list");
         goToCheckout();
-        logger.info("select checkout method");
+        log.info("select checkout method");
         selectCheckoutMethod(asGuestOrRegister);
-        logger.info("fill out billing info");
+        log.info("fill out billing info");
         fillOutBillingInfoAsGuest(firstName,lastName,email,password,address,city,country,state,zipCode,telNum);
-        logger.info("shipping and payment info");
+        log.info("shipping and payment info");
         provideShippingAndPaymentInfo(shippingMethod,paymentMethod,purchaseOrderNumber);
     }
 
@@ -658,7 +652,7 @@ public class PublicPage {
 
     public boolean isPasswordChanged(){
         functionLibrary.waitForElementPresent(successMessage);
-        logger.info("user change password validation : "+successMessage.getText());
+        log.info("user change password validation : "+successMessage.getText());
         return successMessage.isDisplayed();
 
     }

@@ -11,10 +11,11 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
+import static com.unitedcoder.commonuse.UtilityClass.getCellData;
+
 public class MyWishListFunctionalTest extends BaseClass {
 
         PublicPage publicPage;
-        UtilityClass utilityClass = new UtilityClass();
         String excelFilePath = "testdata/gulbahar.xlsx";
         String email;
         String password;
@@ -24,19 +25,19 @@ public class MyWishListFunctionalTest extends BaseClass {
             launchBrowser(BrowserType.valueOf(UtilityClass.readFromConfig("config.properties", "browser")));
             navigateToPublicPage();
             publicPage = new PublicPage(driver);
-            email = utilityClass.getCellData(excelFilePath, 0, 2, 2);
-            password = utilityClass.getCellData(excelFilePath, 0, 2, 3);
+            email = getCellData(excelFilePath, 0, 2, 2);
+            password = getCellData(excelFilePath, 0, 2, 3);
             publicPage.loginToAccount(email, password);
             Assert.assertTrue(publicPage.isLoginSuccessful());
         }
 
         @Test(description = "A registered user should be able add product to myWishlist")
         public void addProductToMyWishlist() throws IOException, InterruptedException {
-            String rootCategory = utilityClass.getCellData(excelFilePath, 1, 1, 0);
-            String subCategory = utilityClass.getCellData(excelFilePath, 1, 1, 1);
-            String productName = utilityClass.getCellData(excelFilePath, 1, 1, 2);
+            String rootCategory = getCellData(excelFilePath, 1, 1, 0);
+            String subCategory = getCellData(excelFilePath, 1, 1, 1);
+            String productName = getCellData(excelFilePath, 1, 1, 2);
             System.out.println(productName);
-            publicPage.addProductToWishList(true, rootCategory, subCategory,productName);
+            publicPage.addProductToWishList( rootCategory, subCategory,productName);
             Assert.assertTrue(publicPage.isAddTOWishListSuccessful());
         }
 

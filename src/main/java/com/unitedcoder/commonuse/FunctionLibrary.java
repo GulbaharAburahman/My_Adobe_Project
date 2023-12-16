@@ -20,12 +20,13 @@ import java.util.Properties;
 public class FunctionLibrary {
     public WebDriver driver;
 
+
     public FunctionLibrary(WebDriver driver) {
         this.driver = driver;
     }
 
 
-    public void sleep(int seconds) throws InterruptedException {
+    public static void sleep(int seconds) throws InterruptedException {
         Thread.sleep(1000L * seconds);
     }
 

@@ -40,32 +40,32 @@ public class publicPageFunctionalTest extends BaseClass {
         Assert.assertTrue(publicPage.isAccountCreated());
         publicPage.logout();
         ArrayList<String> userInfo=new ArrayList<>(List.of(firstname,lastname,email,password));
-        utilityClass.writeListToExistingExcel(excelFilePath,0,2,userInfo);
+        UtilityClass.writeListToExistingExcel(excelFilePath,0,2,userInfo);
     }
 
     @Test (priority = 2,description = "A registered user can login to His/Her Account with valid credentials")
     public void loginToAccount () throws IOException {
-    email=utilityClass.getCellData(excelFilePath,0,2,2);
-    password=utilityClass.getCellData(excelFilePath,0,2,3);
+    email= UtilityClass.getCellData(excelFilePath,0,2,2);
+    password= UtilityClass.getCellData(excelFilePath,0,2,3);
     publicPage.loginToAccount(email,password);
     Assert.assertTrue(publicPage.isLoginSuccessful());
     }
 
     @Test(priority = 3,description = "A user should be able to add products to shopping cart")
     public void  addProductToShoppingCart() throws IOException {
-    String rootCategory= utilityClass.getCellData(excelFilePath,1,1,0);
-    String subCategory= utilityClass.getCellData(excelFilePath,1,1,1);
-    String productName=utilityClass.getCellData(excelFilePath,1,1,2);
-    publicPage.addProductToCart(true,rootCategory,subCategory,productName);
+    String rootCategory= UtilityClass.getCellData(excelFilePath,1,1,0);
+    String subCategory= UtilityClass.getCellData(excelFilePath,1,1,1);
+    String productName= UtilityClass.getCellData(excelFilePath,1,1,2);
+    publicPage.addProductToCart(rootCategory,subCategory,productName);
     Assert.assertTrue(publicPage.isAddToCartSuccessful());
     }
 
     @Test (priority = 4,description ="A user should be able to view My wish list")
       public void  viewMyWishList() throws IOException {
-        String rootCategory= utilityClass.getCellData(excelFilePath,1,1,0);
-        String subCategory= utilityClass.getCellData(excelFilePath,1,1,1);
-        String productName=utilityClass.getCellData(excelFilePath,1,1,2);
-        publicPage.addProductToWishList(false,rootCategory,subCategory,productName);
+        String rootCategory= UtilityClass.getCellData(excelFilePath,1,1,0);
+        String subCategory= UtilityClass.getCellData(excelFilePath,1,1,1);
+        String productName= UtilityClass.getCellData(excelFilePath,1,1,2);
+        publicPage.addProductToWishList(rootCategory,subCategory,productName);
         Assert.assertTrue(publicPage.isSuccessMessageDisplayed());
         Assert.assertTrue(publicPage.isAddTOWishListSuccessful());
         publicPage.logout();
@@ -73,8 +73,8 @@ public class publicPageFunctionalTest extends BaseClass {
 
     @Test(priority =5, description = "A user should be able to check out the order")
     public void checkoutOrder() throws InterruptedException, IOException {
-        email=utilityClass.getCellData(excelFilePath,0,2,2);
-        password=utilityClass.getCellData(excelFilePath,0,2,3);
+        email= UtilityClass.getCellData(excelFilePath,0,2,2);
+        password= UtilityClass.getCellData(excelFilePath,0,2,3);
         publicPage.loginToAccount(email,password);
         publicPage.checkOutMyOrderAfterLogin(FunctionLibrary.getFakeAddress(),"Baltimore","21201",FunctionLibrary.getFakeTelNum(),
               "United States","Maryland ","flat rate","check / money order",null);

@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class UtilityClass {
 
-    String filePath;
+   public static  String filePath;
 
 
 
@@ -34,7 +34,7 @@ public class UtilityClass {
 
 
 
-    public int getRowCount(int sheetIndex) throws IOException {
+    public static int getRowCount(int sheetIndex) throws IOException {
       FileInputStream  fi=new FileInputStream(filePath);
         XSSFWorkbook workbook=new XSSFWorkbook(fi);
        XSSFSheet sheet= workbook.getSheetAt(sheetIndex);
@@ -44,7 +44,7 @@ public class UtilityClass {
         return rowCount;
     }
 
-    public int getCellCount(int sheetIndex,int rowNumber) throws IOException {
+    public static int getCellCount(int sheetIndex,int rowNumber) throws IOException {
         FileInputStream fi=new FileInputStream(filePath);
         XSSFWorkbook workbook=new XSSFWorkbook(fi);
         XSSFSheet  sheet= workbook.getSheetAt(sheetIndex);
@@ -55,7 +55,7 @@ public class UtilityClass {
         return cellCount;
     }
 
-    public String getCellData( String filePath,int sheetIndex, int rowNumber,int cellNumber) throws IOException {
+    public static String getCellData( String filePath,int sheetIndex, int rowNumber,int cellNumber) throws IOException {
        FileInputStream fi=new FileInputStream(filePath);
        XSSFWorkbook  workbook=new XSSFWorkbook(fi);
        XSSFSheet sheet= workbook.getSheetAt(sheetIndex);
@@ -79,7 +79,7 @@ public class UtilityClass {
 
 
     // write to an existing file in a column
-    public void  WriteCellData( String filePath,int sheetIndex, int rowNumber,int cellNumber,String value ) throws IOException {
+    public static void  WriteCellData( String filePath,int sheetIndex, int rowNumber,int cellNumber,String value ) throws IOException {
         FileInputStream fi= new FileInputStream(filePath);
         XSSFWorkbook workbook=new XSSFWorkbook(fi);
         XSSFSheet sheet= workbook.getSheetAt(sheetIndex);
@@ -92,7 +92,7 @@ public class UtilityClass {
 
 
     //create a new Excel file and write a table
-    public void writeToExcel(String fileName, String sheetName, List<String> content) {
+    public static void writeToExcel(String fileName, String sheetName, List<String> content) {
         File file = new File(fileName);
         FileOutputStream outputStream = null;
         try {
@@ -127,7 +127,7 @@ public class UtilityClass {
 
 
     //write list of strings to one row
-    public void writeListToExistingExcel(String filePath, int sheetIndex, int rowNum , ArrayList<String> list) throws IOException {
+    public static void writeListToExistingExcel(String filePath, int sheetIndex, int rowNum , ArrayList<String> list) throws IOException {
 
         FileInputStream inputStream= new FileInputStream(filePath);
 

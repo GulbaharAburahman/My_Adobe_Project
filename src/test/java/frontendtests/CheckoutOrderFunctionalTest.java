@@ -23,7 +23,7 @@ FunctionLibrary functionLibrary;
 
     @Test(description = "A user can checkout his/her order as a guest")
     public void checkoutOrderAsGuest(){
-        publicPage.addProductToShoppingCart1(true,"excellent home & decor","","TITIAN RAW SILK PILLOW");
+        publicPage.addProductToShoppingCart1("excellent home & decor","","TITIAN RAW SILK PILLOW");
         publicPage.checkoutMyOrderWithoutLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(), FunctionLibrary.getFakeEmail(),FunctionLibrary.getPassword(),"8 quay ","Auckland","New Zealand",
                 "","0600","00642134565","free shipping","cash on delivery",null);
         Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());
@@ -32,7 +32,7 @@ FunctionLibrary functionLibrary;
 
     @Test(description="A new user checkouts as register")
             public void checkoutMyOrderAndRegister(){
-        publicPage.addProductToShoppingCart1(false,"Excellent Home & Decor","Electronics","Madison RX3400");
+        publicPage.addProductToShoppingCart1("Excellent Home & Decor","Electronics","Madison RX3400");
         publicPage.goToCheckout();
         publicPage.selectCheckoutMethod("register");
         publicPage.checkoutMyOrderWithoutLogin("register",FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(),
@@ -47,7 +47,7 @@ FunctionLibrary functionLibrary;
     @Test(description = "A registered user with updated address book can check out order by retrieving info from address book")
     public void checkoutOrderAfterLogin( ) throws InterruptedException {
         publicPage.loginToAccount("timthomas@gmail.com","1234567");
-        publicPage.addProductToShoppingCart1(true,"excellent home & decor",null,"TITIAN RAW SILK PILLOW");
+        publicPage.addProductToShoppingCart1("excellent home & decor",null,"TITIAN RAW SILK PILLOW");
        publicPage.checkOutMyOrderAfterLogin("8 quay ","Auckland","0600",
                FunctionLibrary.getFakeTelNum(),"New Zealand","","free shipping","cash on delivery",null);
        Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());
@@ -57,7 +57,7 @@ FunctionLibrary functionLibrary;
     @Test (description = "A registered user who has not updated address book can check out order ")
     public void checkoutOrderAfterNewlyRegister() throws InterruptedException {
       publicPage.createAccount(FunctionLibrary.getFakeFirstname(),FunctionLibrary.getFakeLastname(),FunctionLibrary.getFakeEmail(),FunctionLibrary.getPassword());
-      publicPage.addProductToShoppingCart1(true,"excellent home & decor","Bed & Bath","TITIAN RAW SILK PILLOW");
+      publicPage.addProductToShoppingCart1("excellent home & decor","Bed & Bath","TITIAN RAW SILK PILLOW");
       publicPage.goToCheckout();
       publicPage.checkOutMyOrderAfterLogin("12 Queen St","Auckland","0600","00648866888","New Zealand","","flat rate","cash on delivery",null);
       Assert.assertTrue(publicPage.isCheckoutOrderSuccessful());

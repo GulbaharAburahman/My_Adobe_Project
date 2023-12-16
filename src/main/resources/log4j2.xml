@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Properties>
-        <Property name="filename">./logs</Property>
+        <Property name="basePath">./log</Property>
     </Properties>
 
     <Appenders>
-        <RollingFile name="file"
-                     fileName="${filename}/my_%d{HH-mm-ss-SSS}.log"
-                     filePattern="${filename}/my_%d{HH-mm-ss-SSS}.log">
+
+        <RollingFile name="fileLogger"
+                     fileName="${basePath}/magento.log"
+                     filePattern="${basePath}/magento-%d{yyyy-MM-dd-HH-mm-ss-SSS}.log">
             <PatternLayout>
-                <pattern>"%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"></pattern>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
             </PatternLayout>
-            <SizeBasedTriggeringPolicy size="500"/>
+
+            <SizeBasedTriggeringPolicy size="5MB"/>
+
         </RollingFile>
+
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+
     </Appenders>
 
 
     <Loggers>
-        <Logger name="PublicPage" level="trace" additivity="false">
+        <Logger name="customerModule" level="info" additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+            <AppenderRef ref="fileLogger"/>
         </Logger>
 
-        <Root level="error">
+        <Root level="error"  additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="file"/>
+            <AppenderRef ref="fileLogger"/>
         </Root>
     </Loggers>
 </Configuration>

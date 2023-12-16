@@ -28,7 +28,7 @@ public class AddCustomerTest extends BaseClass {
      String lastname=FunctionLibrary.getFakeLastname();
      String password=FunctionLibrary.getPassword();
      String email=FunctionLibrary.getFakeEmail();
-     String DOB= "10/20/1988";
+     String DOB= "13/02/1988";
      String middleName=Faker.instance().name().nameWithMiddle();
     customerPage.addCustomer("Admin","Senem",firstName,middleName,lastname,email,true,DOB,"Female",
              true,password);
