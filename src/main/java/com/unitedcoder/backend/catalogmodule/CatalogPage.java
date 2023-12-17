@@ -753,11 +753,11 @@ WebDriver driver;
                     WebElement targetProductCheckBox = each.findElement(By.xpath("//parent::tr/td[@class='a-center ']"));
                     functionLibrary.waitForElementPresent(targetProductCheckBox);
                     targetProductCheckBox.click();
-                    isTargetCheckBoxClicked = true;
                     logger.info("check box clicked for product: " + productName);
                     functionLibrary.waitForElementPresent(saveCategoryButton);
                     saveCategoryButton.click();
                     logger.info("Clicked on Save button");
+                    isTargetCheckBoxClicked = true;
                     sleep(2);
                     break;
                 }

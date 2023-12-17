@@ -35,7 +35,7 @@ public class AddRootCategoryTest extends BaseClass {
 
     @AfterClass
     public void tearDown() {
-        tearDown();
+        teardown();
     }
 
 
