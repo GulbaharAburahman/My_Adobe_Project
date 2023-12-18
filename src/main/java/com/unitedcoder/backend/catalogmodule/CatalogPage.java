@@ -14,21 +14,22 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.unitedcoder.commonuse.FunctionLibrary.*;
 
 public class CatalogPage {
-WebDriver driver;
-   FunctionLibrary functionLibrary;
+    WebDriver driver;
+    FunctionLibrary functionLibrary;
 
-   Logger logger = LogManager.getLogger("CatalogModule");
+    Logger logger = LogManager.getLogger("CatalogModule");
 
- public CatalogPage(WebDriver driver){
-     this.driver=driver;
-     PageFactory.initElements(driver,this);
-     functionLibrary=new FunctionLibrary(driver);
- }
+    public CatalogPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        functionLibrary = new FunctionLibrary(driver);
+    }
     //**************  Catalog Manager can add products  ***************************
 
     @FindBy(xpath = "//div//a[@id=\"product_info_tabs_group_22\"]")
@@ -257,16 +258,13 @@ WebDriver driver;
     WebElement newProductCustomOptionsSortOrder;
 
 
-
     //*************************** Catalog *************************
     @FindBy(xpath = "//a//span[text()='Catalog']")
     WebElement catalogLinkTab;
     @FindBy(xpath = "//*[@id='nav']/li/ul/li/a/*[contains(text(),'Manage Categories')]")
     WebElement manageCategoriesLink;
 
-    //*************************** add edit and delete sub category ****************\\
-
-
+    //*************************** add edit and delete sub category ****************
 
     @FindBy(css = "button#add_root_category_button")
     WebElement addRootCategoryButton;
@@ -274,14 +272,12 @@ WebDriver driver;
     WebElement generalInfoTabInRootCat;
     @FindBy(css = "a#category_info_tabs_group_5")
     WebElement displaySettingsTabInRootCat;
-    @FindBy(css = "a#category_info_tabs_group_6")
+    @FindBy(xpath = "//a//span[text()='Custom Design']")
     WebElement customDesignTabInRootCat;
     @FindBy(css = "a#category_info_tabs_products")
     WebElement categoryProductsTabInRootCat;
     @FindBy(id = "group_4name")
     WebElement nameFieldInRootCat;
-    @FindBy(id = "group_4is_active")
-    WebElement isActiveSelectFiled;
     @FindBy(id = "group_4include_in_menu")
     WebElement includeInNavigationSelectField;
     @FindBy(id = "use_config_group_5available_sort_by")
@@ -294,9 +290,25 @@ WebDriver driver;
     WebElement defaultSortByCheckBoxInRootCat;
     @FindBy(css = "select#group_6custom_use_parent_settings")
     WebElement useParentCatSettingDSelectFiled;
+    @FindBy(xpath = "//td[@class='title']")
+    WebElement currentYearMonthElement;
+    @FindAll(@FindBy(xpath = "//tr[@class='daysrow']//td[@class='day']"))
+    List<WebElement> weekDatesElements;
+    @FindAll(@FindBy(xpath = "//tr[@class='daysrow']//td[@class='day weekend']"))
+    List<WebElement> weekendDatesElements;
 
-    @FindBy(css = "img#group_6custom_design_from_trig")
-    WebElement calender;
+    @FindBy(xpath ="//img[@id='group_6custom_design_from_trig']" )
+    WebElement calenderActiveFrom;
+    @FindBy(xpath ="//img[@id='group_6custom_design_to_trig']" )
+    WebElement calenderActiveTo;
+    @FindBy(xpath = "//div[text()='»']")
+    WebElement calenderNextYearButton;
+
+    @FindBy(xpath="//div[text()='›']")
+    WebElement calenderNextMonthButton;
+
+
+    //  *********************  edit  categories section *******************
 
     @FindAll(@FindBy(xpath = "//tr//td[@class=' ']"))
     List<WebElement> IDNameSkuCellsInCategoryProducts;
@@ -307,13 +319,16 @@ WebDriver driver;
     @FindBy(xpath = "(//h3[@class='icon-head head-categories'])[2]")
     WebElement iconHeaderCategories;
 
+   @FindBy(xpath ="//button//span[text()='Reset']")
+    WebElement resetButton;
     @FindBy(css = "#add_subcategory_button")
     WebElement addSubCategoryButton;
     @FindBy(name = "general[name]")
     WebElement subNameFiled;
     @FindBy(id = "group_4is_active")
-    WebElement activeSelect;
-    @FindBy(xpath = "//*[@id=\"category_info_tabs_products\"]/span")
+    WebElement isActiveSelectField;
+
+    @FindBy(xpath = "//*[@id='category_info_tabs_products']/span")
     WebElement categoryProductsLink;
     @FindBy(xpath = "//button[@title='Save Category']")
     WebElement saveCategoryButton;
@@ -322,14 +337,28 @@ WebDriver driver;
     WebElement categorySuccessMessage;
     @FindBy(name = "general[description]")
     WebElement subCategoryDescriptionField;
-    @FindAll(@FindBy(xpath = "//*[@id=\"ext-gen5\"]/div/li/div/a/*[contains(text(),\"\")]"))
-    List<WebElement> findAddedSubCategories;
+    @FindAll(@FindBy(xpath = "//*[@id='ext-gen5']/div/li/div/a/span"))
+    List<WebElement> categories;
     @FindBy(css = "#category_info_tabs_group_4 > span")
     WebElement generalInformationLink;
     @FindBy(css = "a[title='Next page']")
     WebElement nextPageButton;
-    @FindBy(xpath = "//*[@class=\"scalable delete\"]/span/span/span")
+ //   @FindBy(css = "#id_88d125f90d1ffc6ace36639ce17190ce > span")
+  //  WebElement deleteCategoryButton;
+    @FindBy(xpath = "//*[@class='scalable delete']/span/span/span")
     WebElement deleteCategoryButton;
+
+
+    //**************  Catalog Manager can add products  ***************************
+    @FindBy(xpath = "//table[@id=\"productGrid_table\"]//tr//td[contains(text(),\"1101\")]")
+    WebElement productId;
+
+    @FindBy(xpath = "//a[@title=\"Next page\"]")
+    WebElement addProductNextPageButton;
+
+    @FindBy(xpath = "(//td[@class=\"cell-remove a-center last\"]//input[@type=\"checkbox\"]) [2]")
+    WebElement imageRemoveCheckBox;
+
 
     //**************  Catalog Manager can add products  ***************************
 
@@ -472,23 +501,11 @@ WebDriver driver;
 
     }
 
-    //**************  Catalog Manager can add products  ***************************
-
-
-
-    @FindBy(xpath = "//table[@id=\"productGrid_table\"]//tr//td[contains(text(),\"1101\")]")
-    WebElement productId;
-
-    @FindBy (xpath = "//a[@title=\"Next page\"]")
-    WebElement addProductNextPageButton;
-
-    @FindBy(xpath = "(//td[@class=\"cell-remove a-center last\"]//input[@type=\"checkbox\"]) [2]")
-    WebElement imageRemoveCheckBox;
 
     //**************  Catalog Manager can add products  ***************************
-    String productID="//td[contains(text(),\"?\")]//following-sibling::td[@class=' last']/a";
+    String productID = "//td[contains(text(),\"?\")]//following-sibling::td[@class=' last']/a";
 
-    public void manageProductPage(String productByID){
+    public void manageProductPage(String productByID) {
         for (WebElement each : megentoAllTabList) {
             if (each.getText().equals("Catalog")) {
                 Actions actions = new Actions(driver);
@@ -507,24 +524,24 @@ WebDriver driver;
 
     }
 
-    public void findMyEditIconAndClick(String ID){
-        String idNumber=String.format("//td[contains(text(),\"%s\")]//following-sibling::td[@class=' last']/a",ID);
-        while(true){
-            try{
-                WebElement edit=driver.findElement(By.xpath(idNumber));
+    public void findMyEditIconAndClick(String ID) {
+        String idNumber = String.format("//td[contains(text(),\"%s\")]//following-sibling::td[@class=' last']/a", ID);
+        while (true) {
+            try {
+                WebElement edit = driver.findElement(By.xpath(idNumber));
                 functionLibrary.waitForElementPresent(edit);
                 System.out.println("found target edit");
                 edit.click();
                 System.out.println("clicked on target edit");
                 break;
-            }catch (NoSuchElementException e) {
+            } catch (NoSuchElementException e) {
                 System.out.println("can`t locate target edit icon in this page, try next page");
             }
             try {
                 functionLibrary.waitForElementPresent(addProductNextPageButton);
                 addProductNextPageButton.click();
-               sleep(3);
-            } catch (NoSuchElementException e){
+                sleep(3);
+            } catch (NoSuchElementException e) {
                 System.out.println("all pages been checked");
                 break;
 
@@ -533,6 +550,7 @@ WebDriver driver;
             }
         }
     }
+
     public void upDateProductGeneral(String name, String productDescription, String shortDescription, String SKU,
                                      String status, String visibility) {
         functionLibrary.waitForElementPresent(newProductName);
@@ -554,7 +572,8 @@ WebDriver driver;
         Select select1 = new Select(newProductVisibility);
         select1.selectByVisibleText(visibility);
     }
-    public void removeImage(){
+
+    public void removeImage() {
         functionLibrary.waitForElementPresent(imageRemoveCheckBox);
         imageRemoveCheckBox.click();
         functionLibrary.waitForElementPresent(newProductSaveButton);
@@ -570,6 +589,7 @@ WebDriver driver;
         }
         return false;
     }
+
     //**************  Catalog Manager can delete products  ***************************
     @FindBy(xpath = "//button[@title=\"Delete\"]")
     WebElement deleteProductButton;
@@ -594,6 +614,7 @@ WebDriver driver;
         sleep(2);
         driver.switchTo().alert().accept();
     }
+
     public boolean verifyDeleteProduct() {
         functionLibrary.waitForElementPresent(newProductSuccess_msg);
         if (newProductSuccess_msg.getText().contains("The product has been deleted.")) {
@@ -623,7 +644,7 @@ WebDriver driver;
         Thread.sleep(3000);
         functionLibrary.setFluentWaitForElementPresent(subNameFiled);
         subNameFiled.sendKeys(subCategoriesName);
-        Select selectActive = new Select(activeSelect);
+        Select selectActive = new Select(isActiveSelectField);
         selectActive.selectByVisibleText(active);
         functionLibrary.waitForElementPresent(categoryProductsLink);
         categoryProductsLink.click();
@@ -642,8 +663,9 @@ WebDriver driver;
             try {
                 functionLibrary.waitForElementPresent(nextPageButton);
 
-            }catch (NoSuchElementException e){
-            }try {
+            } catch (NoSuchElementException e) {
+            }
+            try {
                 functionLibrary.waitForElementPresent(addProductNextPageButton);
 
                 logger.info("not this page will check next page");
@@ -662,7 +684,7 @@ WebDriver driver;
 
     public void editSubCategories(String subCategoryNames, String description) throws InterruptedException {
         logger.info("edit start now");
-        for (WebElement each : findAddedSubCategories) {
+        for (WebElement each : categories) {
             if (each.getText().equals(subCategoryNames)) {
                 each.click();
                 break;
@@ -689,7 +711,7 @@ WebDriver driver;
 
     public void deleteSubCategories(String subCategoryNames) throws InterruptedException {
         logger.info("delete sub category now");
-        for (WebElement each : findAddedSubCategories) {
+        for (WebElement each : categories) {
             if (each.getText().equals(subCategoryNames)) {
                 each.click();
                 break;
@@ -703,6 +725,7 @@ WebDriver driver;
     }
 
     public boolean isCategoryDeleted() {
+        logger.info(categorySuccessMessage.getText());
         return categorySuccessMessage.isDisplayed();
     }
 
@@ -730,9 +753,9 @@ WebDriver driver;
         functionLibrary.waitForElementPresent(nameFieldInRootCat);
         nameFieldInRootCat.sendKeys(rootCategoryName);
         logger.info("send name");
-        functionLibrary.waitForElementPresent(isActiveSelectFiled);
+        functionLibrary.waitForElementPresent(isActiveSelectField);
         logger.info("select isActive ");
-        Select select = new Select(isActiveSelectFiled);
+        Select select = new Select(isActiveSelectField);
         select.selectByVisibleText(isActive);
         functionLibrary.waitForElementPresent(includeInNavigationSelectField);
         logger.info("select include in navigation  ");
@@ -786,10 +809,169 @@ WebDriver driver;
         fillNewRootCategoryForm(rootCategoryName, isActive, includeInNavigation, productName);
     }
 
+    public void updateRootCategory(String categoryName, String activeFromDate, String activeToDate) throws InterruptedException {
+        logger.info("update a root category");
+        goToManageCategories();
+        for (WebElement each : categories) {
+            functionLibrary.waitForElementPresent(each);
+            if (each.getText().contains(categoryName)) {
+                each.click();
+                logger.info("My category clicked");
+                FunctionLibrary.sleep(3);
+                break;
+            }
+        }
+            functionLibrary.waitForElementPresent(resetButton);
+            resetButton.click();
+            FunctionLibrary.sleep(3);
+            logger.info("reset button clicked");
+            functionLibrary.waitForElementPresent(customDesignTabInRootCat);
+             functionLibrary.javaScriptClick(customDesignTabInRootCat);
+            logger.info("customDesign button clicked");
+            logger.info("use calender to update active from field");
+            functionLibrary.waitForElementPresent(calenderActiveFrom);
+            calenderActiveFrom.click();
+            fillDateFieldWithCalender(activeFromDate);
+            FunctionLibrary.sleep(2);
+            functionLibrary.waitForElementPresent(saveCategoryButton);
+            saveCategoryButton.click();
+            logger.info("save category button clicked");
+        }
+
+
+    public void pickYear(String year) throws InterruptedException {
+        functionLibrary.waitForElementPresent(currentYearMonthElement);
+        String[] currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+        int currentYear = Integer.parseInt(currentYearAndMonth[1].trim());
+        logger.info("read current year and month from the calender : " + Arrays.toString(currentYearAndMonth));
+        int expectedYear = Integer.parseInt(year);
+        while (expectedYear > currentYear) {
+            functionLibrary.waitForElementPresent(calenderNextYearButton);
+            calenderNextYearButton.click();
+            currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+            currentYear = Integer.parseInt(currentYearAndMonth[1].trim());
+        }
+    }
+
+    public void pickMonth(String monthInLetters) {
+        functionLibrary.waitForElementPresent(currentYearMonthElement);
+        String[] currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+        String currentMonth = currentYearAndMonth[0].trim();
+        logger.info("read current month from the calender: " + currentMonth);
+
+        if (monthInLetters.length() != 0) {
+            while (!currentMonth.equalsIgnoreCase(monthInLetters)) {
+                functionLibrary.waitForElementPresent(calenderNextMonthButton);
+                calenderNextMonthButton.click();
+                functionLibrary.waitForElementPresent(currentYearMonthElement);
+                currentYearAndMonth = currentYearMonthElement.getText().trim().split(",");
+                currentMonth = currentYearAndMonth[0].trim();
+            }
+           logger.info("picked month : "+currentMonth);
+        } else logger.info("invalid month ");
+    }
+
+    public void pickDate(String expectedDate) {
+        logger.info("Pick date");
+        int expectedDateInNumber = Integer.parseInt(expectedDate);
+        boolean isDatePicked = false;
+        for (WebElement each : weekDatesElements) {
+            functionLibrary.waitForElementPresent(each);
+            int weekDate = Integer.parseInt(each.getText().trim());
+            if (weekDate == expectedDateInNumber) {
+                logger.info("The date picked : " + weekDate);
+                each.click();
+                isDatePicked = true;
+                break;
+            }
+        }
+        if (!isDatePicked) {
+            for (WebElement each : weekendDatesElements) {
+                functionLibrary.waitForElementPresent(each);
+                int weekendDate = Integer.parseInt(each.getText().trim());
+                if (weekendDate == expectedDateInNumber) {
+                    logger.info("clicked date is : " + weekendDate);
+                    each.click();
+                    isDatePicked = true;
+                    break;
+                }
+            }
+        }
+
+        if (!isDatePicked) {
+            logger.info("please check the date : " + expectedDate + ",it is not valid date in this month . current date is entered for you ");
+        }
+    }
+
+    public String convertMonthInNumberToLetters(String month) {
+        int monthInNumber = Integer.parseInt(month);
+        String monthInLetters = "";
+        switch (monthInNumber) {
+            case 1 -> monthInLetters = "January";
+            case 2 -> monthInLetters = "February";
+            case 3 -> monthInLetters = "March";
+            case 4 -> monthInLetters = "April";
+            case 5 -> monthInLetters = "May";
+            case 6 -> monthInLetters = "June";
+            case 7 -> monthInLetters = "July";
+            case 8 -> monthInLetters = "August";
+            case 9 -> monthInLetters = "September";
+            case 10 -> monthInLetters = "October";
+            case 11 -> monthInLetters = "November";
+            case 12 -> monthInLetters = "December";
+            default -> logger.error("Invalid month , the month should be two digits and between  01 to 12 ");
+        }
+        logger.info("The month in number " + monthInNumber + " is converted to :" + monthInLetters);
+        return monthInLetters;
+    }
+
+
+    public void fillDateFieldWithCalender(String expectedDate) throws InterruptedException {
+        logger.info("picking the date starts now : " + expectedDate);
+        String[] expectedDOBData = expectedDate.trim().split("/");
+        String year = expectedDOBData[2].trim();
+        String monthInNumber = expectedDOBData[0].trim();
+        String date = expectedDOBData[1].trim();
+        pickYear(year);
+        String monthInLetters = convertMonthInNumberToLetters(monthInNumber);
+        pickMonth(monthInLetters);
+        pickDate(date);
+    }
+
+
+    public void deleteRootCategory(String categoryName) throws InterruptedException {
+        logger.info("Delete a root category starts now");
+        goToManageCategories();
+        boolean isCategoryFoundAndClicked = false;
+        for (WebElement each : categories) {
+            functionLibrary.waitForElementPresent(each);
+            if (each.getText().contains(categoryName)) {
+                each.click();
+                isCategoryFoundAndClicked = true;
+                FunctionLibrary.sleep(3);
+                break;
+            }
+        }
+        if (isCategoryFoundAndClicked) {
+            functionLibrary.waitForElementPresent(deleteCategoryButton);
+            deleteCategoryButton.click();
+            logger.info("delete category button clicked");
+            functionLibrary.waitForAlertAndAccept();
+            logger.info("Alert accepted");
+            FunctionLibrary.sleep(3);
+        } else logger.info("sorry cant find your category");
+    }
+
+
+    public boolean isCategoryUpdated(){
+      functionLibrary.waitForElementPresent(successMessage);
+      logger.info("Confirmation message displayed as: " + successMessage.getText());
+      return successMessage.isDisplayed();
+    }
+
+
 
 }
-
-
 
 
 

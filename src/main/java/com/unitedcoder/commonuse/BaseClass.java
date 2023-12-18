@@ -23,7 +23,7 @@ public class BaseClass {
         log.info("launch browser");
   switch (browserType){
    case CHROME -> {  ChromeOptions chromeOptions=new ChromeOptions();
-                      chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+                  chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
                         driver=new ChromeDriver(chromeOptions);}
    case FIREFOX -> {
        FirefoxOptions firefoxOptions=new FirefoxOptions();
