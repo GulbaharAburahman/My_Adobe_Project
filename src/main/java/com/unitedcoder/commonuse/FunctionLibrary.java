@@ -26,8 +26,12 @@ public class FunctionLibrary {
     }
 
 
-    public static void sleep(int seconds) throws InterruptedException {
-        Thread.sleep(1000L * seconds);
+    public static void sleep(int seconds) {
+        try {
+            Thread.sleep(1000L * seconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String getTimeStamp() {
@@ -47,6 +51,8 @@ public class FunctionLibrary {
         Wait<WebDriver> wait=new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(timeOutInSecond))
                 .pollingEvery(Duration.ofMillis(pollingEveryInSecond))
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(ElementClickInterceptedException.class)
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
     }

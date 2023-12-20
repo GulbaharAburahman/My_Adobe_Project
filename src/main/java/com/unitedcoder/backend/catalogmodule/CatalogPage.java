@@ -545,8 +545,6 @@ public class CatalogPage {
                 System.out.println("all pages been checked");
                 break;
 
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -829,6 +827,7 @@ public class CatalogPage {
              functionLibrary.javaScriptClick(customDesignTabInRootCat);
             logger.info("customDesign button clicked");
             logger.info("use calender to update active from field");
+            FunctionLibrary.sleep(2);
             functionLibrary.waitForElementPresent(calenderActiveFrom);
             calenderActiveFrom.click();
             fillDateFieldWithCalender(activeFromDate);

@@ -282,7 +282,7 @@ public void findMyEditIconAndClick(String email){
             functionLibrary.waitForElementPresent(nextPage);
             nextPage.click();
             FunctionLibrary.sleep(2);
-        } catch (NoSuchElementException | InterruptedException e) {
+        } catch (NoSuchElementException e) {
             logger.info("all pages been checked");
             break;
         }

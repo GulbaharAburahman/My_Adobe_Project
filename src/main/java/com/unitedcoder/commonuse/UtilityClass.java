@@ -86,7 +86,10 @@ public class UtilityClass {
         XSSFRow row = sheet.getRow(rowNumber);
         XSSFCell cell=row.createCell(cellNumber);
         cell.setCellValue(value);
-
+        FileOutputStream outputStream = new FileOutputStream(filePath);
+        workbook.write(outputStream);
+        outputStream.close();
+        fi.close();
     }
 
 
