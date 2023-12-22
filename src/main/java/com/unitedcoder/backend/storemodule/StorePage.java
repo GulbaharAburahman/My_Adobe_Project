@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.time.Duration;
 import java.util.List;
 
 public class StorePage {
@@ -49,7 +50,7 @@ public class StorePage {
             WebElement selectCustomerGroupInCreateOrder;
     @FindBy(xpath = "//input[@id='email']")
     WebElement emailFieldInCreateOrder;
-    @FindBy(css=".form-buttons > .add > span" )
+    @FindBy(xpath = "//div[@class='form-buttons']//button[@class='scalable add']//span[contains(text(),'Add Products')]")
     WebElement addProductsButtonInCreateOrder;
 
     @FindBy(xpath ="//input[@id='sales_order_create_search_grid_filter_entity_id']" )
@@ -116,7 +117,7 @@ WebElement cancelButtonInViewOrder;
        searchByEmailFieldInCreateOrder.sendKeys(email);
        functionLibrary.waitForElementPresent(searchButtonInCreateOrder);
        searchButtonInCreateOrder.click();
-       FunctionLibrary.sleep(2);
+       FunctionLibrary.sleep(3);
        String myCustomerXpath ="//td[normalize-space()='?']";
        WebElement targetCustomer= driver.findElement(By.xpath(myCustomerXpath.replace("?",email)));
        functionLibrary.waitForElementPresent(targetCustomer);
@@ -135,9 +136,7 @@ WebElement cancelButtonInViewOrder;
                break;
            }
        } if(!isStoreClicked) logger.info(" this store is not found : "+storeName);
-
-     FunctionLibrary.sleep(3);
-
+       FunctionLibrary.sleep(5);
    }
 
 
@@ -152,7 +151,7 @@ WebElement cancelButtonInViewOrder;
    public void addProductsFromStore(String  productId, String customPrice, String quantity){
        logger.info("add Product from store");
        functionLibrary.waitForElementPresent(addProductsButtonInCreateOrder);
-       addProductsButtonInCreateOrder.click();
+       functionLibrary.javaScriptClick(addProductsButtonInCreateOrder);
        logger.info("find my product checkbox");
        String checkBox="//input[@value='?'][@class='checkbox']";
        try {
@@ -180,7 +179,7 @@ WebElement cancelButtonInViewOrder;
 
        functionLibrary.waitForElementPresent(oKButton);
        oKButton.click();
-       FunctionLibrary.sleep(5);
+      driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
 
        Actions actions=new Actions(driver);
        functionLibrary.waitForElementPresent(addSelectedProductsToOrder);
@@ -205,7 +204,7 @@ WebElement cancelButtonInViewOrder;
    }
 
    public void submitOrder(){
-       FunctionLibrary.sleep(3);
+     driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
        functionLibrary.waitForElementPresent(submitOrderButtonInCreateOrder);
        submitOrderButtonInCreateOrder.click();
    }
@@ -248,10 +247,8 @@ WebElement cancelButtonInViewOrder;
        logger.info("filter my order by order number");
     functionLibrary.waitForElementPresent(searchButtonInCreateOrder);
     searchButtonInCreateOrder.click();
-    FunctionLibrary.sleep(3);
     functionLibrary.waitForElementPresent(viewInEditOrder);
-    viewInEditOrder.click();
-    FunctionLibrary.sleep(5);
+    functionLibrary.javaScriptClick(viewInEditOrder);
    }
    public void editViewingOrder(String quantity){
        functionLibrary.waitForElementPresent(editButtonInEditOrders);
@@ -286,12 +283,12 @@ WebElement cancelButtonInViewOrder;
 
 
    public void cancelOrder(String orderNumber){
+       driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
        logger.info("cancel an existing order ");
        logger.info("find my order by order number and click on view ");
        findMyOrderEndView(orderNumber);
-       FunctionLibrary.sleep(3);
        functionLibrary.waitForElementPresent(cancelButtonInViewOrder);
-       cancelButtonInViewOrder.click();
+       functionLibrary.javaScriptClick(cancelButtonInViewOrder);
        logger.info("Cancel button is clicked");
        functionLibrary.waitForAlertAndAccept();
        logger.info("Alert accepted");

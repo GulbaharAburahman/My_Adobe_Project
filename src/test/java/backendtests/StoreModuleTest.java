@@ -6,12 +6,13 @@ import com.unitedcoder.commonuse.BaseClass;
 import com.unitedcoder.commonuse.BrowserType;
 import com.unitedcoder.commonuse.UtilityClass;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class CreateOrderTest extends BaseClass {
+public class StoreModuleTest extends BaseClass {
     StorePage storePage;
     LoginToAdminPage loginToAdminPage;
 
@@ -63,6 +64,11 @@ public class CreateOrderTest extends BaseClass {
     public void cancelOrder(){
         storePage.cancelOrder(orderNumber);
         Assert.assertTrue(storePage.isOrderCancelled());
+    }
+
+    @AfterClass
+    public void tearDown(){
+        teardown();
     }
 
 
