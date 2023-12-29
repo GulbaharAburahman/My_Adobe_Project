@@ -9,7 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class ViewNewsletterSubscribersTest_Adil extends BaseClass {
+public class ViewNewsletterSubscribersTest extends BaseClass {
     NewsLetterPage newsletterPage;
     FunctionLibrary functionLibrary;
     LoginToAdminPage loginToAdminPage;

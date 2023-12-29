@@ -27,7 +27,6 @@ public class DashBoardPage {
     public boolean isLoginSuccessful(String role){
         functionLibrary.waitForElementPresent(loginHeaderText);
         String loginText=loginHeaderText.getText();
-        System.out.println(loginText);
         return loginText.toLowerCase().contains(role.toLowerCase());
 
     }

@@ -1,10 +1,11 @@
 package backendtests.marketingModule;
 
-import com.seleniummaster.backend.LoginToAdminPage;
-import com.seleniummaster.backend.marketingmodule.PromotionsPage;
-import com.seleniummaster.commonuse.BaseClass;
-import com.seleniummaster.commonuse.BrowserType;
-import com.seleniummaster.commonuse.UtilityClass;
+
+import com.unitedcoder.backend.LoginToAdminPage;
+import com.unitedcoder.backend.marketingmodule.PromotionsPage;
+import com.unitedcoder.commonuse.BaseClass;
+import com.unitedcoder.commonuse.BrowserType;
+import com.unitedcoder.commonuse.UtilityClass;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

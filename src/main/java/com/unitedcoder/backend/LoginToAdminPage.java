@@ -2,12 +2,15 @@ package com.unitedcoder.backend;
 
 import com.unitedcoder.commonuse.FunctionLibrary;
 import com.unitedcoder.commonuse.UtilityClass;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginToAdminPage {
+    Logger logger= LogManager.getLogger();
 WebDriver driver;
 FunctionLibrary functionLibrary;
 final String configFile="config.properties";
@@ -18,6 +21,9 @@ String marketingManagerUsername=UtilityClass.readFromConfig(configFile,"marketin
 String salesManagerUsername=UtilityClass.readFromConfig(configFile,"salesManager_username");
 String reportingManagerUsername=UtilityClass.readFromConfig(configFile,"reportingManager_username");
 String password=UtilityClass.readFromConfig(configFile,"backend_password");
+
+@FindBy(css = "div[class='login-form'] h2")
+WebElement headerLoginToAdminPanelPage;
     @FindBy(id="username")
     WebElement usernameField;
     @FindBy(id="login")
@@ -34,6 +40,7 @@ String password=UtilityClass.readFromConfig(configFile,"backend_password");
 
 
     public void  loginToAdminPanelWithCredentials(String role){
+        logger.info("login to Admin Panel as : "+role );
         functionLibrary.waitForElementPresent(usernameField);
         switch (role.toLowerCase()){
             case "customermanager"  ->usernameField.sendKeys(customerManagerUsername);
@@ -48,6 +55,13 @@ String password=UtilityClass.readFromConfig(configFile,"backend_password");
             passwordField.sendKeys(password);
             functionLibrary.waitForElementPresent(loginButton);
             loginButton.click();
+        }
+
+        public boolean isLoginToAdminPanelPage(){
+        functionLibrary.waitForElementPresent(headerLoginToAdminPanelPage);
+        boolean a = headerLoginToAdminPanelPage.isDisplayed();
+        logger.info("Is Login To Admin Panel Page ? "+a);
+        return a;
         }
 
 

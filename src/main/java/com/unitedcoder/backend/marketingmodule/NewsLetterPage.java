@@ -52,8 +52,8 @@ public class NewsLetterPage {
         }
         functionLibrary.waitForElementPresent(newsletterTemplatesLink);
         newsletterTemplatesLink.click();
-        functionLibrary.sleep(2);
-//        WebElement templates = driver.findElement(By.xpath(String.format("//*[@class=\"hor-scroll\"]/table/tbody/tr/td[contains(text(),'%s')]",templateName)));
+        FunctionLibrary.sleep(2);
+
         while (true) {
             boolean isTargetCheckBoxClicked = false;
             for (WebElement each : findNewsletterWithName) {
@@ -61,7 +61,7 @@ public class NewsLetterPage {
                 if (each.getText().trim().contains(templateName)) {
                     each.click();
                     isTargetCheckBoxClicked = true;
-                    functionLibrary.sleep(2);
+                    FunctionLibrary.sleep(2);
                     break;
                 }
             }
@@ -69,7 +69,7 @@ public class NewsLetterPage {
                 try {
                     functionLibrary.waitForElementPresent(nextPageButton);
                     nextPageButton.click();
-                    functionLibrary.sleep(2);
+                    FunctionLibrary.sleep(2);
                 } catch (NoSuchElementException e) {
                     break;
                 }
@@ -84,7 +84,7 @@ public class NewsLetterPage {
         templateNameFiled.sendKeys(templateName);
         functionLibrary.waitForElementPresent(searchButton);
         searchButton.click();
-        functionLibrary.sleep(2);
+        FunctionLibrary.sleep(2);
         functionLibrary.waitForElementPresent(noFindMassage);
         if (noFindMassage.isDisplayed()){
             return true;
@@ -104,7 +104,7 @@ public class NewsLetterPage {
         }
         functionLibrary.waitForElementPresent(newsletterSubscribersLink);
         newsletterSubscribersLink.click();
-        functionLibrary.sleep(2);
+        FunctionLibrary.sleep(2);
     }
     public boolean isViewNewsletterSubscribers(){
         return verifyNewsletterSubscribersLink.isDisplayed();

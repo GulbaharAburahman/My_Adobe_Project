@@ -1,11 +1,11 @@
 package backendtests.marketingModule;
 
 
-import com.seleniummaster.backend.LoginToAdminPage;
-import com.seleniummaster.backend.marketingmodule.PromotionsPage;
-import com.seleniummaster.commonuse.BaseClass;
-import com.seleniummaster.commonuse.BrowserType;
-import com.seleniummaster.commonuse.FunctionLibrary;
+import com.unitedcoder.backend.LoginToAdminPage;
+import com.unitedcoder.backend.marketingmodule.PromotionsPage;
+import com.unitedcoder.commonuse.BaseClass;
+import com.unitedcoder.commonuse.BrowserType;
+import com.unitedcoder.commonuse.FunctionLibrary;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -14,24 +14,16 @@ import org.testng.annotations.Test;
 
 import java.awt.*;
 
-/**
- * @author : ELMA
- * @created : 12/12/2023,5:49 PM
- * @Email : elma231199@gmail.com
- **/
 public class MarketingModuleAddNewShoppingCartPriceRuleTest_Zikrullah extends BaseClass {
 
-    BaseClass baseClass;
    PromotionsPage promotionsPage;
   FunctionLibrary functionLibrary;
 
     @BeforeClass
     public void setUp() {
-      baseClass = new BaseClass();
-        baseClass.launchBrowser(BrowserType.CHROME);
-        WebDriver driver = baseClass.driver;
-        baseClass.navigateToBackEnd();
-        LoginToAdminPage loginPage = new LoginToAdminPage(baseClass.driver);
+launchBrowser(BrowserType.CHROME);
+navigateToBackEnd();
+LoginToAdminPage loginPage = new LoginToAdminPage(driver);
         loginPage.loginToAdminPanelWithCredentials("marketingmanager");
          functionLibrary = new FunctionLibrary(driver);
          promotionsPage=new PromotionsPage(driver);
@@ -51,7 +43,7 @@ public class MarketingModuleAddNewShoppingCartPriceRuleTest_Zikrullah extends Ba
     }
     @AfterClass
     public void teraDown(){
-     baseClass.teardown();
+    teardown();
 
     }
 }

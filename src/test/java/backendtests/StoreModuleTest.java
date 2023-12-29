@@ -23,7 +23,6 @@ public class StoreModuleTest extends BaseClass {
     String customPrice;
     String quantity;
     String paymentMethod;
-    String orderNumber;
     String groupName;
 
 
@@ -41,7 +40,7 @@ public class StoreModuleTest extends BaseClass {
         customPrice=UtilityClass.getCellData(filePath,3,1,4);
         quantity=UtilityClass.getCellData(filePath,3,1,5);
         paymentMethod=UtilityClass.getCellData(filePath,3,1,6);
-        orderNumber=UtilityClass.getCellData(filePath,3,1,7);
+
 
     }
 
@@ -55,13 +54,15 @@ public class StoreModuleTest extends BaseClass {
 
 
     @Test(priority = 2)
-    public void editAnExistingOrder(){
+    public void editAnExistingOrder() throws IOException {
+       String orderNumber=UtilityClass.getCellData(filePath,3,1,7);
         storePage.editMyOrder(orderNumber,"1");
         Assert.assertTrue(storePage.isOrderUpdated());
     }
 
     @Test(priority = 3)
-    public void cancelOrder(){
+    public void cancelOrder() throws IOException {
+       String  orderNumber=UtilityClass.getCellData(filePath,3,1,7);
         storePage.cancelOrder(orderNumber);
         Assert.assertTrue(storePage.isOrderCancelled());
     }
